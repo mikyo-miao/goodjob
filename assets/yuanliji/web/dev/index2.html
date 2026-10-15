@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>源理纪</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+SC:wght@400;600;900&display=swap');
+:root{
+  --bg:#f5f6fb;--ink:#1b2140;--ink2:#56607f;--ink3:#8a92ad;
+  --gold:#b98f3c;--gold2:#e9d39c;--gold3:#f8efd6;--az:#6f9edc;--az2:#d9e6fb;
+  --glass:rgba(255,255,255,.66);--line:rgba(185,143,60,.32);
+  --serif:'Noto Serif SC','Source Han Serif SC','Songti SC','STSong','SimSun',serif;
+  --latin:'Cinzel','Trajan Pro','Times New Roman',serif;
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--serif);color:var(--ink);line-height:1.8;overflow-x:hidden;
+  background:
+   radial-gradient(900px 520px at 85% 8%,rgba(184,208,246,.55),transparent 62%),
+   radial-gradient(760px 520px at 5% 40%,rgba(248,232,196,.55),transparent 60%),
+   radial-gradient(820px 600px at 90% 75%,rgba(228,214,250,.45),transparent 60%),
+   var(--bg);}
+img{display:block;max-width:100%}
+button,input,textarea{font:inherit;color:inherit}
+::selection{background:var(--gold2)}
+/* 星屑 */
+.motes{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.motes i{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:radial-gradient(circle,#fff 0,#f3dc9e 45%,transparent 70%);opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:.9}100%{transform:translateY(-110vh) scale(1.1);opacity:0}}
+/* 侧边导航 */
+.dots{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:9px}
+.dots a{position:relative;width:9px;height:9px;border-radius:50%;border:1px solid var(--gold);background:rgba(255,255,255,.7);transition:.3s}
+.dots a.on{background:var(--gold);box-shadow:0 0 0 3px rgba(185,143,60,.18)}
+.dots a span{position:absolute;right:16px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:11px;letter-spacing:.2em;color:var(--ink2);opacity:0;transition:.25s;pointer-events:none;background:rgba(255,255,255,.85);padding:1px 8px;border-radius:20px}
+.dots a:hover span,.dots a.on span{opacity:1}
+.mute{position:fixed;left:10px;top:10px;z-index:50;border:1px solid var(--line);background:rgba(255,255,255,.75);backdrop-filter:blur(8px);border-radius:20px;padding:3px 12px;font-size:12px;letter-spacing:.1em;cursor:pointer}
+/* 通用区块 */
+section{position:relative;z-index:1;padding:64px 22px 56px;max-width:1080px;margin:0 auto}
+.over{font-family:var(--latin);font-size:11px;letter-spacing:.42em;color:var(--gold);text-align:center;text-transform:uppercase}
+.h2{font-size:30px;font-weight:900;letter-spacing:.16em;text-align:center;margin:4px 0 6px;
+  background:linear-gradient(180deg,#2a3158 0,#4a4f7a 55%,#8a6a2c 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:2px auto 22px;color:var(--gold)}
+.orn:before,.orn:after{content:"";height:1px;width:min(120px,22vw);background:linear-gradient(90deg,transparent,var(--gold))}
+.orn:after{transform:scaleX(-1)}
+.orn b{width:9px;height:9px;transform:rotate(45deg);border:1px solid var(--gold);background:var(--gold3)}
+.lead{max-width:640px;margin:0 auto 26px;text-align:center;color:var(--ink2);font-size:14.5px}
+.glass{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);
+  box-shadow:0 14px 40px rgba(56,72,130,.10),inset 0 0 0 1px rgba(185,143,60,.14)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+.btn{display:inline-flex;align-items:center;gap:6px;border:0;cursor:pointer;border-radius:40px;padding:10px 22px;font-weight:600;letter-spacing:.14em;font-size:14px;transition:.25s;text-decoration:none}
+.btn-gold{color:#fff;background:linear-gradient(135deg,#d7b265,#b0832f 60%,#caa457);box-shadow:0 8px 24px rgba(176,131,47,.35),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(176,131,47,.45)}
+.btn-ghost{color:var(--ink);background:rgba(255,255,255,.7);border:1px solid var(--line)}
+.btn-ghost:hover{background:#fff}
+.chip{display:inline-block;padding:1px 10px;border-radius:20px;font-size:12px;letter-spacing:.08em;border:1px solid var(--line);background:rgba(255,255,255,.75);color:var(--ink2)}
+/* 首屏 */
+#hero{max-width:none;padding:0;height:100vh;min-height:520px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;color:#fff}
+#hero video,#hero .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#hero:after{content:"";position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(12,16,38,.55) 0,rgba(12,16,38,.15) 38%,rgba(20,26,58,.35) 64%,rgba(245,246,251,1) 100%),
+  radial-gradient(circle at 50% 38%,transparent 30%,rgba(10,14,34,.45) 100%)}
+.astro{position:absolute;left:50%;top:44%;width:min(560px,120vw);aspect-ratio:1;transform:translate(-50%,-50%);z-index:1;opacity:.55;animation:spin 90s linear infinite;pointer-events:none}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.hero-in{position:relative;z-index:2;text-align:center;padding:0 18px 9vh}
+.hero-in .over{color:var(--gold2);text-shadow:0 0 12px rgba(0,0,0,.5)}
+.logo{font-size:clamp(46px,12vw,92px);font-weight:900;letter-spacing:.32em;margin-right:-.32em;line-height:1.15;
+  background:linear-gradient(180deg,#fffdf6 0,#f5e3ae 46%,#c99a45 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 18px rgba(0,0,0,.45))}
+.tag{margin:6px 0 20px;font-size:clamp(13px,3.4vw,16px);letter-spacing:.32em;color:#f3ecdc;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.scroll-hint{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);z-index:2;color:var(--ink3);font-size:11px;letter-spacing:.3em;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,5px)}}
+/* 序章 */
+.prolog{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}
+.prolog .txt{padding:26px 26px 22px}
+.prolog p{font-size:15px;color:#2b3150;margin-bottom:12px;text-indent:2em}
+.prolog p.q{text-indent:0;border-left:3px solid var(--gold2);padding-left:12px;color:var(--ink2);font-size:14px}
+.prolog .pic{border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;position:relative}
+.prolog .pic img{width:100%;height:100%;object-fit:cover}
+.prolog .pic:after{content:"AG 1000.10.11 · 脱钩之夜";position:absolute;left:12px;bottom:10px;color:#fff;font-size:12px;letter-spacing:.2em;text-shadow:0 1px 6px #000}
+/* 娅修 */
+.ash{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;align-items:stretch}
+.stage{position:relative;border-radius:var(--r);overflow:hidden;background:linear-gradient(160deg,#fff 0,var(--az2) 100%);min-height:420px}
+.stage img,.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 12%}
+.stage img{mix-blend-mode:multiply}
+.stage video{background:#fff}
+.snd{position:absolute;right:10px;bottom:10px;z-index:3;border:1px solid rgba(255,255,255,.9);background:rgba(20,26,58,.55);color:#fff;border-radius:20px;padding:3px 12px;font-size:12px;cursor:pointer;backdrop-filter:blur(6px)}
+.mode{position:absolute;left:10px;top:10px;z-index:3;display:flex;gap:4px}
+.mode button{border:1px solid rgba(185,143,60,.4);background:rgba(255,255,255,.8);border-radius:20px;padding:1px 10px;font-size:12px;cursor:pointer}
+.mode button.on{background:var(--gold);color:#fff;border-color:var(--gold)}
+.ash .info{padding:24px}
+.nm{font-size:28px;font-weight:900;letter-spacing:.12em}
+.ep{font-family:var(--latin);color:var(--gold);letter-spacing:.3em;font-size:12px}
+.quote{position:relative;margin:14px 0;padding:12px 16px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(232,240,252,.9));border:1px solid rgba(143,178,232,.45);font-size:14.5px}
+.quote:before{content:"「";color:var(--az);font-weight:900}
+.quote:after{content:"」";color:var(--az);font-weight:900}
+.meter{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px}
+.meter div{text-align:center;font-size:11px;color:var(--ink2);padding-top:6px;border-top:3px solid var(--az2)}
+.meter div.lit{border-color:var(--az);color:var(--ink)}
+/* 世界 */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{padding:22px}
+.card h3{font-size:19px;letter-spacing:.16em;margin-bottom:6px}
+.card h3 small{display:block;font-family:var(--latin);font-size:10.5px;letter-spacing:.32em;color:var(--gold);font-weight:500}
+.card p{font-size:14px;color:var(--ink2)}
+.card.dark{background:linear-gradient(160deg,rgba(32,38,74,.92),rgba(52,48,92,.88));color:#eef1ff;border-color:rgba(233,211,156,.4)}
+.card.dark p{color:#cfd5f0}
+.card.dark h3 small{color:var(--gold2)}
+.dict{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
+.dict button{border:1px solid var(--line);background:rgba(255,255,255,.8);border-radius:20px;padding:3px 14px;font-size:13px;cursor:pointer;transition:.2s}
+.dict button.on,.dict button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.dict-out{max-width:640px;margin:12px auto 0;min-height:3.6em;text-align:center;font-size:14px;color:var(--ink2);padding:10px 16px}
+/* 四境与源理技 */
+.realms{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.realm{padding:16px 14px;text-align:center;cursor:pointer;transition:.25s}
+.realm .lv{font-family:var(--latin);font-size:22px;color:var(--gold)}
+.realm b{display:block;font-size:16px;letter-spacing:.12em}
+.realm span{display:block;font-size:12.5px;color:var(--ink2);margin-top:4px}
+.realm.on{transform:translateY(-4px);box-shadow:0 18px 40px rgba(176,131,47,.22),inset 0 0 0 1px var(--gold)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.tabs button{border:1px solid var(--line);background:rgba(255,255,255,.75);border-radius:20px;padding:3px 14px;font-size:13px;cursor:pointer}
+.tabs button.on{background:linear-gradient(135deg,#d7b265,#b0832f);color:#fff;border-color:transparent}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.skill{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.8);border:1px solid rgba(185,143,60,.2)}
+.skill b{font-size:15px;letter-spacing:.06em}
+.skill b em{font-style:normal;font-family:var(--latin);color:var(--gold);margin-right:6px}
+.skill p{font-size:12.5px;color:var(--ink2)}
+.skill i{font-style:normal;font-size:11.5px;color:var(--az)}
+.skill.ult{background:linear-gradient(135deg,#fffaf0,#f3e6c4);border-color:var(--gold)}
+/* 名册 */
+.faction{margin-bottom:42px}
+.fh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px;padding:0 4px}
+.fh h3{font-size:22px;letter-spacing:.2em}
+.fh span{font-size:12.5px;color:var(--ink2)}
+.ava{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
+.ava::-webkit-scrollbar{display:none}
+.ava button{flex:0 0 auto;width:54px;height:54px;border-radius:50%;padding:0;border:2px solid #fff;cursor:pointer;background:#fff center/cover no-repeat;box-shadow:0 4px 12px rgba(40,50,90,.15);transition:.25s;opacity:.7}
+.ava button.on{opacity:1;transform:scale(1.08);border-color:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 35%,transparent),0 8px 18px rgba(40,50,90,.2)}
+.rbox{display:grid;grid-template-columns:.95fr 1.05fr;gap:16px}
+.rbox .stage{min-height:460px;background:radial-gradient(circle at 50% 35%,#fff 0,color-mix(in srgb,var(--c) 22%,#fff) 70%,color-mix(in srgb,var(--c) 35%,#fff) 100%)}
+.rinfo{padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.rinfo .nm{color:var(--ink)}
+.rinfo .ep{color:var(--c)}
+.rinfo .chips{display:flex;flex-wrap:wrap;gap:6px}
+.rinfo .quote{background:linear-gradient(135deg,#fff,color-mix(in srgb,var(--c) 10%,#fff));border-color:color-mix(in srgb,var(--c) 45%,transparent)}
+.rinfo .quote:before,.rinfo .quote:after{color:var(--c)}
+.rinfo p{font-size:13.5px;color:var(--ink2)}
+.rinfo p b{color:var(--ink);font-weight:600}
+.gal{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.gal button{border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:#fff;border-radius:20px;padding:2px 12px;font-size:12.5px;cursor:pointer}
+.gal button.on{background:var(--c);color:#fff;border-color:var(--c)}
+.gal button.r18{border-color:#d9566f;color:#c43d58}
+.gal button.r18.on{background:#d9566f;color:#fff}
+.thumbs{display:flex;gap:6px;flex-wrap:wrap}
+.thumbs button{border:1px solid var(--line);background:rgba(255,255,255,.85);border-radius:10px;padding:2px 9px;font-size:12px;cursor:pointer}
+.thumbs button.on{border-color:var(--c);color:var(--c);font-weight:600}
+/* 玩法 */
+.sys{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.axis{display:flex;align-items:center;gap:8px;margin:10px 0}
+.axis .bar{flex:1;height:6px;border-radius:6px;background:linear-gradient(90deg,#7fc2e0,#e8d9a8 50%,#d9566f)}
+.axis span{font-size:12px;white-space:nowrap}
+.steps{display:flex;gap:6px;margin-top:10px}
+.steps div{flex:1;text-align:center;padding:8px 4px;border-radius:12px;background:rgba(255,255,255,.85);border:1px solid var(--line);font-size:12.5px}
+.steps div b{display:block;font-size:17px;color:var(--gold);font-family:var(--latin)}
+.gaze{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:10px}
+.gaze div{font-size:11px;text-align:center;padding:6px 0;border-radius:8px;color:#fff}
+/* 状态栏预览 */
+.hud{margin-top:16px;border-radius:16px;padding:14px;color:#e6e9ff;background:radial-gradient(circle at 80% 0,rgba(120,110,200,.35),transparent 50%),linear-gradient(160deg,#151a3a,#1e1a42);border:1px solid rgba(233,211,156,.35);font-size:12.5px}
+.hud .row{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed rgba(233,211,156,.2);padding:5px 0}
+.hud .row:last-child{border:0}
+.hud b{color:var(--gold2);font-weight:600}
+.hud .pb{height:5px;border-radius:5px;background:rgba(255,255,255,.12);margin-top:3px;overflow:hidden}
+.hud .pb i{display:block;height:100%;background:linear-gradient(90deg,#f5d77f,#e5486e)}
+/* 版图 */
+.map{position:relative;border-radius:var(--r);overflow:hidden}
+.map img{width:100%}
+.regions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.regions button{border:1px solid var(--line);background:rgba(255,255,255,.8);border-radius:20px;padding:2px 12px;font-size:12.5px;cursor:pointer}
+.regions button.on{background:var(--az);color:#fff;border-color:var(--az)}
+/* 奇遇 */
+.events{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ev{padding:18px;position:relative;overflow:hidden}
+.ev .no{position:absolute;right:12px;top:6px;font-family:var(--latin);font-size:34px;color:rgba(185,143,60,.16)}
+.ev h4{font-size:16px;letter-spacing:.1em;margin-bottom:4px}
+.ev .where{font-size:11.5px;color:var(--gold);letter-spacing:.12em}
+.ev p{font-size:13px;color:var(--ink2);margin-top:6px}
+/* 周目一 */
+#erased{max-width:none;color:#e8ebff;text-align:center;background:linear-gradient(180deg,var(--bg) 0,#1b2046 18%,#141832 82%,var(--bg) 100%);padding:90px 22px}
+#erased .h2{background:linear-gradient(180deg,#fff,#d9c38b);-webkit-background-clip:text;background-clip:text}
+.years{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin:20px 0}
+.years div b{display:block;font-family:var(--latin);font-size:34px;color:var(--gold2)}
+.years div span{font-size:12px;letter-spacing:.2em;color:#b9bfe0}
+#erased p{max-width:560px;margin:0 auto;font-size:14.5px;color:#cdd3f2}
+/* 开局 */
+.form{padding:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld.w{grid-column:1/-1}
+.fld label{font-size:12.5px;letter-spacing:.14em;color:var(--ink2)}
+.fld input,.fld textarea{border:1px solid rgba(185,143,60,.3);border-radius:12px;background:rgba(255,255,255,.9);padding:8px 12px;font-size:14px;outline:none;transition:.2s;resize:vertical}
+.fld input:focus,.fld textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(185,143,60,.15)}
+.fld textarea{min-height:64px}
+.sex{display:flex;gap:6px;flex-wrap:wrap}
+.sex button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:2px 14px;font-size:13px;cursor:pointer}
+.sex button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.step-t{display:flex;align-items:center;gap:10px;margin:26px 0 12px;font-size:17px;letter-spacing:.16em;font-weight:700}
+.step-t em{font-style:normal;font-family:var(--latin);font-size:13px;color:#fff;background:var(--gold);width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
+.ops{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.op{cursor:pointer;border-radius:16px;overflow:hidden;background:#fff;border:2px solid transparent;box-shadow:0 8px 22px rgba(40,50,90,.1);transition:.25s;display:flex;flex-direction:column}
+.op:hover{transform:translateY(-3px)}
+.op.on{border-color:var(--gold);box-shadow:0 0 0 3px rgba(185,143,60,.2),0 14px 30px rgba(176,131,47,.25)}
+.op .im{aspect-ratio:16/10;background:#eef1f8 center 18%/cover no-repeat;position:relative}
+.op .im em{position:absolute;left:8px;top:8px;font-style:normal;font-size:11px;padding:0 8px;border-radius:20px;background:rgba(20,26,58,.7);color:#fff;letter-spacing:.1em}
+.op .im em.hard{background:#c43d58}
+.op .tx{padding:10px 12px}
+.op b{font-size:15px;letter-spacing:.08em}
+.op small{display:block;font-size:11.5px;color:var(--gold)}
+.op.custom .im{display:flex;align-items:center;justify-content:center;font-size:36px;color:var(--gold);background:linear-gradient(135deg,#fffaf0,#eef3fc)}
+.preview{margin-top:14px;padding:18px 20px;font-size:14px;color:#2b3150}
+.preview h4{font-size:16px;letter-spacing:.12em;margin-bottom:4px}
+.preview .meta{font-size:12px;color:var(--gold);letter-spacing:.1em;margin-bottom:8px}
+.preview p{text-indent:2em}
+.customf{display:none;margin-top:12px}
+.customf.show{display:grid}
+.chk{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink2);cursor:pointer}
+.chk input{width:16px;height:16px;accent-color:#c43d58}
+.go{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:20px 0 12px}
+#out{width:100%;min-height:220px;border-radius:14px;border:1px solid rgba(185,143,60,.35);background:#fffdf8;padding:14px;font-size:13.5px;line-height:1.75;display:none}
+.tip{text-align:center;font-size:12px;color:var(--ink3)}
+footer{position:relative;z-index:1;text-align:center;padding:40px 20px 60px}
+footer .h2{font-size:22px}
+footer p{font-size:12px;color:var(--ink3);letter-spacing:.1em}
+/* 手机 */
+@media (max-width:640px){
+  section{padding:48px 14px 40px}
+  .h2{font-size:24px;letter-spacing:.1em}
+  .prolog,.ash,.two,.rbox,.sys,.grid2{grid-template-columns:1fr}
+  .realms{grid-template-columns:repeat(2,1fr)}
+  .skills,.events,.ops{grid-template-columns:1fr 1fr}
+  .stage,.rbox .stage{min-height:380px}
+  .prolog .pic{aspect-ratio:16/10}
+  .dots{right:4px}
+  .dots a span{display:none}
+  .ops .op .tx{padding:8px}
+  .fld textarea{min-height:84px}
+}
+@media (max-width:400px){.skills,.events{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="motes" id="motes"></div>
+<button class="mute" id="mute" type="button">♪ 声音：关</button>
+<nav class="dots" id="dots"></nav>
+
+<!-- 首屏 -->
+<section id="hero" data-label="序">
+  <video id="heroVid" autoplay muted loop playsinline preload="auto"></video>
+  <svg class="astro" viewBox="0 0 200 200" aria-hidden="true">
+    <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f6e2a6"/><stop offset="1" stop-color="#c99a45"/></linearGradient></defs>
+    <g fill="none" stroke="url(#g)" stroke-width=".5">
+      <circle cx="100" cy="100" r="96"/><circle cx="100" cy="100" r="88" stroke-dasharray="2 3"/><circle cx="100" cy="100" r="64"/>
+      <circle cx="100" cy="100" r="40" stroke-dasharray="1 2"/>
+      <path d="M100 4V196M4 100H196M32 32L168 168M168 32L32 168"/>
+      <polygon points="100,12 176,144 24,144"/><polygon points="100,188 24,56 176,56"/>
+    </g>
+  </svg>
+  <div class="hero-in">
+    <div class="over">The Codex of Origin · 二周目</div>
+    <h1 class="logo">源理纪</h1>
+    <div class="tag">面板是虚妄的烙印 · 真理由你亲手重构</div>
+    <div class="hero-btns">
+      <a class="btn btn-gold" href="#start">✦ 创建你的褪色者</a>
+      <a class="btn btn-ghost" href="#roster">认识她们</a>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- 序章 -->
+<section id="prologue" data-label="脱钩之夜">
+  <div class="over reveal">Prologue</div>
+  <h2 class="h2 reveal">序章 · 脱钩之夜</h2>
+  <div class="orn reveal"><b></b></div>
+  <div class="prolog">
+    <div class="txt glass reveal">
+      <p>暴雨倾盆。圣克图斯神圣帝国边境，黑森林驿站外一夜无月。钱袋砸进泥水，溅起一朵浑浊的泥花——那是你三年的遣散费。</p>
+      <p class="q">「根据第304次战斗模型，你的战术贡献率，是绝对的零成。你是负资产。」——海伦娜</p>
+      <p class="q">「晨星家只有一条规矩：让主将在阵前倒下的人，不能再留在阵里。」——奥蕾莉亚</p>
+      <p>她们不知道，三年里每一次术式失控，都是你用一根看不见的灰线替她们拨正的。今夜借着她们的傲慢，你主动斩断了与那五个人的同源共生锁。</p>
+      <p>雨声忽然变得很慢、很远。意识深处，一个霜白短发的女孩盘腿坐在灰烬里，歪头看你——</p>
+    </div>
+    <div class="pic reveal"><img id="prologImg" alt="脱钩之夜" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- 娅修 -->
+<section id="ash" data-label="娅修">
+  <div class="over reveal">The One Inside</div>
+  <h2 class="h2 reveal">娅修 · 百年后的你</h2>
+  <div class="orn reveal"><b></b></div>
+  <div class="ash">
+    <div class="stage reveal" style="--c:#8fb2e8" id="ashStage"></div>
+    <div class="info glass reveal">
+      <div class="ep">ASH · THE TRUTH ARCHITECT</div>
+      <div class="nm">娅修</div>
+      <div class="chips" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span class="chip">毒舌</span><span class="chip">假小子</span><span class="chip">傲娇</span><span class="chip">住在你脑子里</span></div>
+      <div class="quote">哈？醒啦。……啧，就这副蠢样，真是我？算了。我叫娅修，从今天起住你脑子里，房租就不收了。</div>
+      <p style="font-size:14px;color:var(--ink2)">一百年后，你登上了神骨王座，然后发现一无所有。于是你燃尽神力逆转时间，带着一具重塑过的女孩子的身体，回到了被踢出队伍的那个雨夜——回到你自己的脑子里。</p>
+      <p style="font-size:14px;color:var(--ink2);margin-top:8px">她知道很多还没发生的事，却只肯说「那家伙不靠谱」「信我一次」。她先损你，被你认真对待就脸红结巴。她的<b style="color:var(--ink)">坦诚度</b>只升不降——</p>
+      <div class="meter"><div class="lit">嘴硬</div><div class="lit">露馅</div><div>半句真心</div><div>黏人</div><div>坦率</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 世界 -->
+<section id="world" data-label="世界">
+  <div class="over reveal">The Two Layers</div>
+  <h2 class="h2 reveal">一座被经营千万年的信仰牧场</h2>
+  <div class="orn reveal"><b></b></div>
+  <div class="two">
+    <div class="card glass reveal"><h3><small>SURFACE · DIVINE PANEL</small>表层 · 神恩面板</h3>
+      <p>凡人视面板为灵魂的绝对烙印：评级决定种姓，等级刻在胸前的徽章上。A 至 SSS 被教廷与公会特招，F 级无色者是「被神拒绝的废物」——住店被拒，买东西溢价。升级时从天而降的温暖光柱，被所有人当作神的恩赐。</p></div>
+    <div class="card dark reveal"><h3><small>BENEATH · THE WEB OF ORIGIN</small>里层 · 源理之网</h3>
+      <p>世界的骨架是千万根无色的灰线。高庭伪神用面板锁死凡人的认知，每 100 点经验抽走 80 点；魔物是被圈养的收割场。全大陆只有你看得见这张网——而你手里，握着唯一能改写它的笔。</p></div>
+  </div>
+  <div class="dict reveal" id="dict"></div>
+  <div class="dict-out glass reveal" id="dictOut">点一个词，看它是什么意思。</div>
+</section>
+
+<!-- 能力 -->
+<section id="power" data-label="虚无一笔">
+  <div class="over reveal">The Null Stroke</div>
+  <h2 class="h2 reveal">虚无一笔 · 看懂，然后改写</h2>
+  <div class="orn reveal"><b></b></div>
+  <p class="lead reveal">先「洞析」一个对象，看懂它的结构；洞析度满了，落笔一次，就把它学成一项<b>源理技</b>。五系三十项，名字直白，开口就能点名施展。</p>
+  <div class="realms" id="realms"></div>
+  <div class="tabs reveal" id="schoolTabs"></div>
+  <div class="skills" id="skills"></div>
+</section>
+
+<!-- 名册 -->
+<section id="roster" data-label="名册">
+  <div class="over reveal">Dramatis Personae</div>
+  <h2 class="h2 reveal">十二位女主 · 两份名册</h2>
+  <div class="orn reveal"><b></b></div>
+  <p class="lead reveal">上方是把你扔进泥水的天骄，下方是被面板判为残缺、正等着被你「听见」的遗民。点头像切换，立绘可切到动态，🔊 可开声音。</p>
+  <div class="faction" id="fGolden"></div>
+  <div class="faction" id="fRelic"></div>
+</section>
+
+<!-- 玩法 -->
+<section id="play" data-label="玩法">
+  <div class="over reveal">How It Plays</div>
+  <h2 class="h2 reveal">世界会回答你的每一笔</h2>
+  <div class="orn reveal"><b></b></div>
+  <div class="sys">
+    <div class="card glass reveal"><h3><small>ATTITUDE AXIS</small>前队友 · 救赎还是摧毁</h3>
+      <p>黄金之誓五人各有一条态度轴，由你的具体言行决定，可以随时转向。两条线分量同等：</p>
+      <div class="axis"><span>救赎</span><div class="bar"></div><span>摧毁</span></div>
+      <p>救赎：知遇 → 同源 → 共命｜摧毁：折傲 → 求舍 → 饲欲。停在中间的「利用」，她就是你的打手、火力或情报网。</p></div>
+    <div class="card glass reveal"><h3><small>WHISPERS</small>遗民 · 先被你听见</h3>
+      <p>七位遗民停在危机前夜。你靠近她、打听她，风声才会放出，倒计时才开始走——永远看得见、来得及。</p>
+      <div class="steps"><div><b>30</b>风声</div><div><b>10</b>来人</div><div><b>3</b>求救</div><div><b>!</b>出事</div></div></div>
+    <div class="card glass reveal"><h3><small>THE GAZE</small>注视度 · 别让伪神看见你</h3>
+      <p>每一次在人前改写高阶法则，云端的目光就离你更近一步。</p>
+      <div class="gaze"><div style="background:#7fc2e0">安全</div><div style="background:#8ea7d8">抽查</div><div style="background:#b48fd0">猎犬</div><div style="background:#d9748f">预兆</div><div style="background:#c43d58">神谕</div></div></div>
+    <div class="card glass reveal"><h3><small>COLLECTION</small>羁绊名录 · 全收集</h3>
+      <p>十二人一页看完，未遇者只留一条外号线索。集齐三位遗民解锁共鸣阵型，五位满环，七位开启「撕裂伪天」；五位前队友走到底，迎来黄金终章。</p></div>
+  </div>
+  <div class="hud reveal">
+    <div class="row"><span><b>AG 1000.10.13</b> · 凌晨 · 南林行省·青苔关</span><span>微端盲涉</span></div>
+    <div class="row"><span>神魂力 72% · 微耗<div class="pb"><i style="width:72%"></i></div></span><span>注视度 8 · 安全<div class="pb"><i style="width:8%"></i></div></span></div>
+    <div class="row"><span><b>伊格妮丝</b>　回冲度 68% · 淤积　好感 24%</span><span>无面板 · 实测相当圣域阶高段</span></div>
+    <div class="row"><span><b>下一项源理技</b>　【受潮】〔元素系〕洞析度 60%</span><span>钱袋 0金46银</span></div>
+  </div>
+  <p class="tip" style="margin-top:8px">↑ 每一轮正文后都有一张这样的星穹状态栏，数值、人物卡与记忆全部自动结算。</p>
+</section>
+
+<!-- 版图 -->
+<section id="map" data-label="版图">
+  <div class="over reveal">The Continent</div>
+  <h2 class="h2 reveal">大陆版图 · 十大可探索区</h2>
+  <div class="orn reveal"><b></b></div>
+  <div class="map glass reveal"><img id="mapImg" alt="大陆版图" loading="lazy"></div>
+  <div class="regions reveal" id="regions"></div>
+  <div class="dict-out glass reveal" id="regionOut">点一个地区，看那里有什么。</div>
+</section>
+
+<!-- 奇遇 -->
+<section id="events" data-label="奇遇">
+  <div class="over reveal">Encounters</div>
+  <h2 class="h2 reveal">路上会遇见的事</h2>
+  <div class="orn reveal"><b></b></div>
+  <div class="events" id="evs"></div>
+</section>
+
+<!-- 周目一 -->
+<section id="erased" data-label="周目一">
+  <div class="over">The Erased Century</div>
+  <h2 class="h2">周目一 · 被抹除的一百年</h2>
+  <div class="years"><div><b>103</b><span>年</span></div><div><b>36</b><span>年追杀</span></div><div><b>7</b><span>位没能救下的人</span></div></div>
+  <p>那一次，你独自走进灰原，被昔日的队友一次次洞穿胸膛；那七个少女，在你看不见的地方一个个死去。一百年后，她坐上神骨王座，回头时身边没有第二把椅子。<br><br>所以这一次，她回来了。</p>
+</section>
+
+<!-- 开局 -->
+<section id="start" data-label="开局">
+  <div class="over reveal">Begin Your Story</div>
+  <h2 class="h2 reveal">执笔 · 你的开局</h2>
+  <div class="orn reveal"><b></b></div>
+  <p class="lead reveal">填好你的档案，选一个开局，点「生成开局」，再「复制开局」发给 AI 作为第一条消息。每一栏都可以留空，留空就用默认设定；无论你填什么，故事都用「你」来称呼你。</p>
+
+  <div class="step-t"><em>1</em>你的档案</div>
+  <div class="form glass">
+    <div class="grid2">
+      <div class="fld"><label>姓名</label><input id="pName" maxlength="20" placeholder="留空：旁白叫你「你」，传闻里你是「褪色者」"></div>
+      <div class="fld"><label>性别</label>
+        <div class="sex" id="sex"><button type="button" data-v="男">男</button><button type="button" data-v="女">女</button><button type="button" data-v="">自定义</button></div>
+        <input id="pSex" maxlength="20" placeholder="留空：男" style="margin-top:4px"></div>
+      <div class="fld w"><label>外貌</label><textarea id="pLook" placeholder="留空：黑发，灰蓝色的眼睛（和娅修是同一双眼睛），三年码头劳力练出的结实身板，肩上有搬货留下的旧伤。"></textarea></div>
+      <div class="fld w"><label>性格</label><textarea id="pChar" placeholder="留空：嘴上不多话，心里有数，记仇也记恩。"></textarea></div>
+      <div class="fld w"><label>额外设定</label><textarea id="pExtra" placeholder="留空：无。可以写身份经历、习惯、禁忌、想要的玩法倾向……"></textarea></div>
+    </div>
+  </div>
+
+  <div class="step-t"><em>2</em>选择开局节点</div>
+  <div class="tabs" id="opTabs"><button type="button" class="on" data-g="t">时间线</button><button type="button" data-g="r">遗民开局</button><button type="button" data-g="c">自定义</button></div>
+  <div class="ops" id="ops"></div>
+  <div class="preview glass" id="opPrev"></div>
+  <div class="form glass customf grid2" id="customF">
+    <div class="fld"><label>日期</label><input id="cDate" placeholder="例：AG 1000.11.02（帝国纪年 AG）"></div>
+    <div class="fld"><label>地点</label><input id="cPlace" placeholder="例：金鸢尾港·旧货巷"></div>
+    <div class="fld w"><label>处境</label><textarea id="cSit" placeholder="你此刻在做什么、身边有谁、刚刚发生了什么……"></textarea></div>
+    <label class="chk w"><input type="checkbox" id="cHard">高压模式：所有遗民死线按日历同时推进（先救谁，就是这一局的玩法）</label>
+  </div>
+
+  <div class="step-t"><em>3</em>还想补充的话</div>
+  <div class="form glass"><div class="fld w"><textarea id="pMore" placeholder="可选：想让开局多点什么、少点什么，或者想对娅修说的第一句话……"></textarea></div></div>
+
+  <div class="go">
+    <button class="btn btn-gold" type="button" id="genBtn">✦ 生成开局</button>
+    <button class="btn btn-ghost" type="button" id="copyBtn">复制开局</button>
+  </div>
+  <textarea id="out" readonly></textarea>
+  <p class="tip">复制后粘贴到聊天框，作为你的第一条消息发出即可。</p>
+</section>
+
+<footer>
+  <div class="h2">真正的真理，由你亲手重构。</div>
+  <p>本作为成人向虚构作品，全部登场角色均为已成年虚构存在。</p>
+</footer>
+
+<script>
+(function(){
+var B='https://raw.githubusercontent.com/mikyo-miao/goodjob/main/assets/yuanliji/';
+var W=B+'web/';
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
+
+/* ---------- 全局声音 ---------- */
+var soundOn=false, SILENT={rosalind:1};
+var muteBtn=$('#mute');
+function applySound(){ $$('video').forEach(function(v){ v.muted=!soundOn||!!SILENT[v.dataset.code]; }); muteBtn.textContent=soundOn?'♪ 声音：开':'♪ 声音：关'; }
+muteBtn.onclick=function(){soundOn=!soundOn;applySound();$$('video').forEach(function(v){if(!v.paused)v.play().catch(function(){})});};
+
+/* ---------- 首屏 ---------- */
+var hv=$('#heroVid'); hv.dataset.code='prologue'; hv.poster=W+'video/prologue.webp'; hv.src=W+'video/prologue.mp4';
+$('#prologImg').src=W+'video/prologue.webp';
+
+/* ---------- 星屑 ---------- */
+var mo=$('#motes'); for(var i=0;i<22;i++){var m=el('i');m.style.left=Math.random()*100+'%';m.style.animationDuration=(9+Math.random()*10)+'s';m.style.animationDelay=(-Math.random()*18)+'s';var s=2+Math.random()*4;m.style.width=m.style.height=s+'px';mo.appendChild(m);}
+
+/* ---------- 立绘舞台（静态/动态/声音） ---------- */
+function makeStage(box,code,opts){
+  opts=opts||{};
+  box.innerHTML='';
+  var img=el('img');img.alt='';img.loading='lazy';img.src=opts.src||W+code+'/stand.webp';
+  var vid=null, mode='img';
+  var bar=el('div','mode');
+  var bImg=el('button','on','立绘'), bVid=el('button','','动态');
+  bImg.type=bVid.type='button';
+  bar.appendChild(bImg);bar.appendChild(bVid);
+  var snd=el('button','snd','🔊 声音');snd.type='button';snd.style.display='none';
+  box.appendChild(img);box.appendChild(bar);box.appendChild(snd);
+  function toVid(){
+    if(!vid){vid=el('video');vid.dataset.code=code;vid.loop=true;vid.playsInline=true;vid.setAttribute('playsinline','');vid.muted=true;vid.poster=W+'video/'+code+'.webp';vid.src=W+'video/'+code+'.mp4';box.insertBefore(vid,bar);}
+    vid.style.display='block';img.style.display='none';mode='vid';
+    vid.muted=!soundOn||!!SILENT[code]; vid.play().catch(function(){});
+    bVid.className='on';bImg.className='';snd.style.display=SILENT[code]?'none':'block';
+    snd.textContent=vid.muted?'🔇 点我开声音':'🔊 声音开';
+  }
+  function toImg(src){ if(vid){vid.pause();vid.style.display='none';} if(src)img.src=src; img.style.display='block';mode='img';bImg.className='on';bVid.className='';snd.style.display='none'; }
+  bImg.onclick=function(){toImg()}; bVid.onclick=toVid;
+  snd.onclick=function(){ if(!vid)return; vid.muted=!vid.muted; if(!vid.muted){vid.play().catch(function(){});} snd.textContent=vid.muted?'🔇 点我开声音':'🔊 声音开'; };
+  return {show:toImg,video:toVid};
+}
+makeStage($('#ashStage'),'ash');
+
+/* ---------- 词典 ---------- */
+var DICT=[
+ ['虚无一笔','你的核心能力：看懂一道术式的结构，再用两指一划，改写或抹去它。'],
+ ['渊默之质','你天生没有「反射面」——魔物的感知与范围魔法会从你身上滑开，所以你难被发现、难被锁定。'],
+ ['源理技','你学会的具体招式，五系三十项。先洞析，再落笔一次就能习得，永久保留。'],
+ ['洞析度','看懂一个对象的程度。战斗中到 50% 能打断敌人大招，到 100% 暴露弱点。'],
+ ['神魂力','施展源理技、沉入精神空间都要消耗它。透支了，就会吐血、失手、境界暂跌。'],
+ ['注视度','伪神对你的注意程度。越高，教廷的猎犬离你越近；到了顶，神谕通缉令就会降下。'],
+ ['神恩硬壳','面板中人的高阶术式外面那层保护。硬壳还在时，你只能改「末梢」——离手的火、脚下的地。'],
+ ['失控率','前队友失去你兜底后术式失稳的程度：越高，越容易失手、反噬。'],
+ ['回冲度','遗民体内狂暴魔力的淤积程度：越高越躁乱，满了就会失控。'],
+ ['共鸣环','你与收编遗民之间的互补循环：救下的人越多，你越强，她们越稳。'],
+ ['坦诚度','娅修对你说真心话的程度，只升不降。到 75，她第一次叫你的名字。'],
+ ['夙愿代行','生死绝境时，娅修接管你的身体十息，解决眼前的强敌。代价是你的神魂归零。']];
+var dw=$('#dict'),dout=$('#dictOut');
+DICT.forEach(function(d){var b=el('button','',d[0]);b.type='button';b.onclick=function(){$$('button',dw).forEach(function(x){x.classList.remove('on')});b.classList.add('on');dout.innerHTML='<b style="color:var(--ink)">'+d[0]+'</b>　'+d[1];};dw.appendChild(b);});
+
+/* ---------- 四境与源理技 ---------- */
+var REALMS=[['I','微端盲涉','只能改末梢：离手的术式、脚下的地、手里的兵器'],['II','本源解构','能重写一个人的本源病灶——拯救遗民的境界'],['III','概念寂灭','抽掉一片区域的某种属性，敌我不分'],['IV','真理重构','撕碎伪神的天幕，重编世界']];
+var rw=$('#realms');
+REALMS.forEach(function(r,i){var d=el('div','realm glass reveal'+(i==0?' on':''),'<div class="lv">'+r[0]+'</div><b>'+r[1]+'</b><span>'+r[2]+'</span>');d.onclick=function(){$$('.realm').forEach(function(x){x.classList.remove('on')});d.classList.add('on')};rw.appendChild(d);});
+var SCHOOLS={
+ '基础':[['绊足','让对手自己摔倒','削韧-8'],['钝刃','刀剑暂时失去锋利','削韧-5'],['轻重','改变物品的轻重','钱袋沉如铁'],['卸力','抹平一次攻击的力道','免伤一次'],['定身','让对手动弹不得','削韧-15'],['万物归尘','一片区域的器物碎成沙','奥义']],
+ '元素':[['熄火','火焰只剩光','削韧-10'],['受潮','空气湿透，火点不着','削韧-6'],['引雷','让雷电拐弯','削韧-12'],['属性反转','把元素术式翻面打回去','削韧-25'],['元素附魔','给同伴武器附上元素','同伴+10'],['万象归零','一片区域的元素全部哑火','奥义']],
+ '神圣':[['褪光','神术只剩光效','削韧-10'],['伪圣痕','骗过验身与验徽','潜入用'],['禁疗','让治疗失效','反制'],['圣光窃取','把敌人的祝福转给同伴','转移'],['面板伪装','改写显示的等级与身份','伪装'],['神谕静默','一片区域的面板全部断线','奥义']],
+ '深渊':[['装死','魔物把你当死物','潜行'],['转移仇恨','把魔物引向别处','削韧-10'],['魔物驯服','让低阶魔物听你的','驯服'],['素材提纯','战利品品质升一档','赚钱'],['深渊潜行','魔物主动绕开你们','潜行'],['母巢断脉','一片区域不再生出魔物','奥义']],
+ '禁忌':[['回声','读出神造之物的记忆','情报'],['拆锁','拆下一道神造锁扣','解封'],['遮天','压低注视度','注视-10'],['解封','拆除一整道封印','解封'],['改写契约','改写契约条款','改写'],['伪天剥落','撕开一小片天幕','奥义']]};
+var st=$('#schoolTabs'),sk=$('#skills');
+function showSchool(n){$$('button',st).forEach(function(b){b.classList.toggle('on',b.textContent==n+'系')});sk.innerHTML='';SCHOOLS[n].forEach(function(s,i){sk.appendChild(el('div','skill'+(i==5?' ult':''),'<b><em>'+(i+1)+'</em>'+(i==5?'奥义·':'')+s[0]+'</b><p>'+s[1]+'</p><i>'+s[2]+'</i>'))});}
+Object.keys(SCHOOLS).forEach(function(n,i){var b=el('button','',n+'系');b.type='button';b.onclick=function(){showSchool(n)};st.appendChild(b);});
+showSchool('基础');
+
+/* ---------- 名册 ---------- */
+var EXPR=['蔑视','开心','羞涩','震惊','动情'];
+var GOLD=[
+ {c:'aurelia',col:'#d9a93a',n:'奥蕾莉亚',ep:'MORNING STAR · 晨星剑圣',chips:['SS级','圣域阶巅峰','原队长','慕强'],q:'F级待在F级的位置，这不是侮辱，是秩序。',
+  bio:'帝国第一军阀「晨星家」长女。六岁预检亮起金光，父亲当场落泪——为门楣，不为女儿。她的轻蔑是「不把你算进去」。',flaw:'绝对命中与绝对防御，全靠你暗中改写敌人的闪避。失去你之后，拔剑却砍不中活物。',anc:'输了会要求「再来一次」——她只对看得起的人提这个要求。'},
+ {c:'chloe',col:'#ef5b5b',n:'克洛伊',ep:'CRIMSON PRODIGY · 猩红神童',chips:['SSS级','首席爆裂法师','平民天才'],q:'公会给你写的是「随队辅助」，给我写的是「十年一遇」。我们之间差的不是三年，是这两个词。',
+  bio:'那一届授仪唯一的平民 SSS 级，公会十年的活招牌。她对「底层」最刻薄，因为她最怕被人看成其中一员。',flaw:'术式脉络乱如猫抓的毛线团，三年里全靠你替她疏导过载。现在，高阶法术要么哑火，要么炸膛。',anc:'嘴上说「这不是为你做的」——你开口时，她已经在做了。'},
+ {c:'violet',col:'#9a7bd6',n:'维奥莱特',ep:'NIGHT SHADE · 夜魅',chips:['S级','幻术师·刺客','精算'],q:'我算过了：你三年薪水七十二枚银币……别误会，我不心疼钱，我只是讨厌亏本。',
+  bio:'为自己的出身撒过三个版本的谎。真相是收容所里唯一测出 S 级的孩子——她每年匿名给那家收容所寄钱。',flaw:'暗影幻术会反噬心智，是你在她脑内织起屏障。没有你，全力施法就会被暗面冲垮理智。',anc:'阴阳怪气越重，越在乎；她永远留一手——对你留的那一手，是怕失去你。'},
+ {c:'seraphina',col:'#d2b46a',n:'塞拉菲娜',ep:'TEAR OF THE GODDESS · 神明之泪',chips:['SS级','首席圣女','大祭司候选'],q:'女神不会遗弃任何人。所以你看，我也没有遗弃你——是你自己的路，走到了这里。',
+  bio:'孤儿院长大，没有血亲。她必须一直是「善良」的那个人，否则就要回到那个没有名字的地方。慈悲是真的，需要观众也是真的。',flaw:'她的治疗是失控的血肉增殖。冬至圣祭上，没有你掐断那一笔，断臂骑士会长成四米高的怪物。',anc:'她真的信神——而她已经开始在祈祷里加上你的名字。'},
+ {c:'helena',col:'#6f98d6',n:'海伦娜',ep:'ALL-SEEING EYE · 全知之眼',chips:['S级','首席战术师','星象学者'],q:'我不讨厌你。讨厌需要分配情绪，而你不在我的变量表里。',
+  bio:'档案司抄写员的女儿。父亲说：「你只要比数字更准确，就不会被丢掉。」她用五十页报告把你钉死在一个「0」上。',flaw:'她的公式总漏算风阻、错算护甲衰减，三年里每一次都是你补上那一笔。现在，按她的计划行军等于团灭。',anc:'算错时只说「变量不足」——然后悄悄把你的偏好写进公式。'}];
+var RELIC=[
+ {c:'ignis',col:'#f07a3c',n:'伊格妮丝',ep:'CRIMSON CALAMITY · 绯红天灾',chips:['红龙','狂战士','体温41℃'],q:'再靠近他一步，老娘就把你骨头一点点嚼碎咽下去！滚！',
+  bio:'红龙族末裔。母亲被猎魔团射杀，她在矿场做了十二年苦役，左角被锯下去报功。对外人是恶犬，对你是拱进掌心的大型犬。',flaw:'伪神剪掉了她的泄焰之窍：战斗三分钟，体温与魔力就会失控，直到内脏自燃。',anc:'用「饿了／热了／要打」代替「想你」；冲阵之前，会回头看你在不在。'},
+ {c:'lilia',col:'#b79be8',n:'莉莉娅',ep:'SHAME OF THE NIGHT · 纯情魅魔',chips:['魅魔','精神系','骑士小说'],q:'对、对不起！我不仅是个魅魔，还穿得这么下流……请您千万不要看我……',
+  bio:'被魔族除名的魅魔：第一次上「觅食课」时吐了三次。她把魅魔的角、翼与尾巴全压进身体，看上去只是个人类少女，坚信「只有婚后才能亲吻」。',flaw:'无法进食，常年饿到魔力枯竭；敌人还没被魅惑，她先羞到晕倒。',anc:'一动情，粉晶色的眼睛里就浮出桃心——永远先于嘴出卖她。'},
+ {c:'yuel',col:'#5fb59a',n:'幽尔',ep:'WEEPING WRAITH · 幽冥泣音',chips:['死灵法师','重度社恐','布偶熊'],q:'呜……主、主人，幽尔可以躲进你的影子里吗？',
+  bio:'死灵名门独女，出生那天祠堂所有亡灵一起暴动。唯一对她好的老仆，临死前给她缝那只熊，缝到一半——所以熊的肚子是开的。',flaw:'万年一遇的极阴魔力，御灵之威却是负数：召出的小骷髅会抢她的糖、扯她的头发。',anc:'她能说出口的、最接近「我需要你」的句子，就是「可以躲进你的影子里吗」。'},
+ {c:'rosalind',col:'#e5486e',n:'罗莎琳德',ep:'SCARLET EMPRESS · 猩红女皇',chips:['吸血鬼真祖','千年','姐姐'],q:'啊啦，今天也辛苦了呀，我可爱的小主人。来，到姐姐怀里。',
+  bio:'活了上千年的真祖，曾立下「不以人类为食」的克制契约。古堡长桌上摆着二十七副空餐具，她每月一日醒来，擦一遍长桌。',flaw:'现代人类的血对她如同泥沙。饿了三百年，连一只蝙蝠都召不出来。',anc:'嘴上永远从容得体，银白的长发却会随心跳泛起金色——头发老早就出卖了她。'},
+ {c:'mumu',col:'#f48fbd',n:'沐沐',ep:'THOUSAND FORMS · 千变万化',chips:['拟态史莱姆','好奇宝宝','兔耳胶体'],q:'主人，这个姿势您不舒服吗？那沐沐把腿融化掉，重新长一条好不好？',
+  bio:'深渊挤出来的纯粹流体，没有家世，「沐沐」是听别人叫狗学来的名字。她记得给她丢过面包屑的十一个人的脚步声。',flaw:'凝聚之基极低，被哥布林敲一下就散成一地果冻，只剩眼睛在地上眨巴。',anc:'想要就直说；被拒绝也不气馁，会换一个折中方案。'},
+ {c:'twins',col:'#6c7aa8',n:'西尔维娅 & 辛西娅',ep:'SAINT AND SINNER · 双面修女',chips:['双重人格','修女','火刑倒计时'],q:'别理那个天天念经的蠢女人。来吧，小帅哥——她就在里面羞得快晕过去了~',
+  bio:'原本是一对双胞胎，被教廷「并入」同一具身体。天蓝瞳的姐姐背经赎罪，暗红瞳的妹妹嘲讽一切。她们已被关在圣水地牢八年。',flaw:'双倍灵魂、双倍魔力，指令却互相冲撞，灵肉失调，无法战斗。',anc:'一个用眼泪抗拒，一个用挑逗认同——两种都朝向你。'},
+ {c:'iluvier',col:'#7fc2e0',n:'伊露维尔',ep:'FALLEN CORONA · 月冕女王',chips:['精灵女王','寿逾万载','一万零八十道封印'],q:'人类，你身上……有着凌驾于诸神之上的真理气息。',
+  bio:'上古精灵帝国最后的君主。伪神降临那天，她把族人送走，独自留在王座上断后。族人流亡时编了一句谚语：「月冕失信。」',flaw:'被焊上一万零八十道源罪封印，锁死在 Lv.1，连一个藤蔓术都放不出来。镀金的奴隶项圈，戴了近三百年。',anc:'用主仆礼仪把要求包装成「恩典申请」，跪得笔直。'}];
+function buildFaction(box,title,sub,list){
+  box.innerHTML='';
+  var h=el('div','fh reveal','<h3>'+title+'</h3><span>'+sub+'</span>');box.appendChild(h);
+  var ava=el('div','ava reveal');box.appendChild(ava);
+  var rb=el('div','rbox');var stg=el('div','stage glass reveal');var inf=el('div','rinfo glass reveal');rb.appendChild(stg);rb.appendChild(inf);box.appendChild(rb);
+  var cur=0, stage=null;
+  function show(i){
+    cur=i;var d=list[i];box.style.setProperty('--c',d.col);
+    $$('button',ava).forEach(function(b,k){b.classList.toggle('on',k==i)});
+    stage=makeStage(stg,d.c);
+    var html='<div class="ep">'+d.ep+'</div><div class="nm">'+d.n+'</div><div class="chips">'+d.chips.map(function(x){return '<span class="chip">'+x+'</span>'}).join('')+'</div>'+
+      '<div class="quote">'+d.q+'</div><p>'+d.bio+'</p><p><b>致命残缺</b>　'+d.flaw+'</p><p><b>她的样子</b>　'+d.anc+'</p>'+
+      '<div class="gal"><button type="button" data-k="stand" class="on">立绘</button><button type="button" data-k="expr">表情</button><button type="button" data-k="turn">日常</button><button type="button" data-k="battle">战斗</button><button type="button" data-k="r18" class="r18">绘卷 R18</button></div><div class="thumbs"></div>';
+    inf.innerHTML=html;
+    var th=$('.thumbs',inf);
+    $$('.gal button',inf).forEach(function(b){b.onclick=function(){
+      $$('.gal button',inf).forEach(function(x){x.classList.remove('on')});b.classList.add('on');th.innerHTML='';
+      var k=b.dataset.k, base=W+d.c+'/';
+      function opts(arr){arr.forEach(function(o,j){var t=el('button',j==0?'on':'',o[0]);t.type='button';t.onclick=function(){$$('button',th).forEach(function(x){x.classList.remove('on')});t.classList.add('on');stage.show(base+o[1])};th.appendChild(t)});stage.show(base+arr[0][1]);}
+      if(k=='stand')opts([['正面','stand.webp'],['回眸','turn.webp'],['漫步','walk.webp']]);
+      else if(k=='expr')opts(EXPR.map(function(e,j){return [e,'e'+j+'.webp']}));
+      else if(k=='turn')opts([['回眸','turn.webp'],['漫步','walk.webp']]);
+      else if(k=='battle')opts([['战斗','battle.webp']]);
+      else opts([['纯爱·救赎','r_pure.webp'],['堕落·摧毁','r_fall.webp'],['深层调谐','r_main.webp']]);
+    }});
+    $$('.gal button',inf)[0].onclick();
+  }
+  list.forEach(function(d,i){var b=el('button');b.type='button';b.title=d.n;b.style.backgroundImage='url('+B+'say/'+d.c+'.webp)';b.style.setProperty('--c',d.col);b.onclick=function(){show(i)};ava.appendChild(b);});
+  show(0);
+  return {show:show,len:list.length,cur:function(){return cur}};
+}
+buildFaction($('#fGolden'),'黄金之誓','把你扔进泥水的五位天骄',GOLD);
+buildFaction($('#fRelic'),'神弃遗民','等你「听见」的七位少女',RELIC);
+
+/* ---------- 版图 ---------- */
+$('#mapImg').src=W+'worldmap.webp';
+var REG=[['圣克图斯帝都','纯白大理石与鎏金巨塔，内环是王权与神权，外环是你搬了三年魔晶的七号码头。'],['暗巷黑市与暮色地下城','不认面板只认钱。地下城一百二十层，是伪神的收割场。'],['叹息黑森林','治愈术在这里会变成剧毒。魅魔、死灵与沉睡的真祖都在林子深处。'],['渊喉灰原','面板完全失效的灰烬荒原——这里是你的主场。'],['金鸢尾港','走私与拍卖之城。黄金天平拍卖行，只认信用。'],['浮空学城巴别塔','悬在一千二百米高空的魔法学城，F 级本该肺裂吐血。'],['荆棘修道院','教廷的异端审判与洗脑中心，双子修女被关在这里。'],['世界树残根','精灵的故地，水往上流，火焰结冰。'],['钢铁要塞巴洛克','抵御深渊魔潮的第一道城墙，断流期在这里害死无数士兵。'],['沉月湖与倒影宫','唯有月圆之夜才能看见源理之网的倒影。长公主在这里办秘密舞会。']];
+var rg=$('#regions'),ro=$('#regionOut');
+REG.forEach(function(r){var b=el('button','',r[0]);b.type='button';b.onclick=function(){$$('button',rg).forEach(function(x){x.classList.remove('on')});b.classList.add('on');ro.innerHTML='<b style="color:var(--ink)">'+r[0]+'</b>　'+r[1]};rg.appendChild(b)});
+
+/* ---------- 奇遇 ---------- */
+var EV=[['呼吸税','边境检查站','门卫见你的白板徽章，要收十倍过路费。你把钱袋放上柜台，悄悄改了它的「重量」——门卫一提，像提起一袋铁锭，当场闪了腰。'],
+ ['魔王的尴尬召唤','黑魔法祭坛','数十名黑魔法师献祭召唤大恶魔。你嫌它太吵，改写了它的「阵营判定」——咆哮的恶魔戴上围裙，开始烤松饼。'],
+ ['白板酒馆','王都外环','老板在墙上挂了块木牌，专记从这里走出去、后来混出名堂的 F 级。木牌一直空着。你要不要留个名字？'],
+ ['味觉共享','任何一顿饭','娅修馋了，傲娇地命令「这口分我尝尝」。你故意咬了一口魔鬼椒——精神空间里的她辣得满地打滚，一边哈气一边骂人。'],
+ ['一支没用的蜡烛','路边小摊','罗莎琳德停在一个卖蜡烛的摊子前。这是她一千年来，第一次想买一样没有用的东西。'],
+ ['时停的市场','深渊中层','一整片被时间封住的千年前的市场。解开它，商人们会照千年前的价格做生意——其中一个，求你帮她找回自己的账本。']];
+var ew=$('#evs');EV.forEach(function(e,i){ew.appendChild(el('div','ev glass reveal','<div class="no">0'+(i+1)+'</div><div class="where">'+e[1]+'</div><h4>'+e[0]+'</h4><p>'+e[2]+'</p>'))});
+
+/* ---------- 开局 ---------- */
+var SCENE=W+'scene/';
+var OPS=[
+ {g:'t',id:'night',name:'脱钩之夜',date:'AG 1000.10.11 夜',place:'黑森林驿站外',img:W+'video/prologue.webp',scene:'op_night',def:1,
+  text:'暴雨倾盆。五道被金色神恩笼罩的身影立在驿站的灯影下，钱袋砸进你脚边的泥水。「即刻起，你被逐出黄金之誓。」橡木大门轰然阖拢，笑语被隔在门内。三年了，你借着她们的傲慢斩断了同源共生锁——然后，雨声忽然变得很慢、很远，一个霜白短发的女孩在你意识深处睁开了眼睛。'},
+ {g:'t',id:'ceremony',name:'授仪大典',date:'AG 994.10.11',place:'帝都·授仪广场',img:W+'aurelia/stand.webp',scene:'op_ceremony',
+  text:'五万人的广场，五道金色光柱从天而降，落在高台上五个十六岁的少女身上——SS、SSS、SS、S、S，人群的欢呼像潮水。然后是你。神恩水晶灰了一下，司仪念出「F 级，无色者」，一块生锈的木牌塞进你手里。你还没走出广场，脑子里就有个声音嗤笑了一声：「那块破木牌你还真捡？」'},
+ {g:'t',id:'guild',name:'契约入队',date:'AG 997.06.15',place:'冒险者公会·登记大厅',img:W+'helena/stand.webp',scene:'op_guild',
+  text:'公会登记大厅，一份三年外派观测契约摊在柜台上：月薪两枚银币，职务「临渊提灯人」。柜台对面，五位天骄第一次凑齐——没有一个人看你。圣女说带一个 F 级是「神恩不弃底层」，战术师已经在本子上给你画了个零。羽毛笔在你手里，娅修抱着胳膊：「给她们当三年保姆？……行，利息我替你记着。」'},
+ {g:'t',id:'eve',name:'圣祭前夜',date:'AG 1000.12.14',place:'帝都·白银大教堂外',img:W+'seraphina/stand.webp',scene:'op_eve',
+  text:'帝都下着小雪，明天是冬至圣祭。五万人会在授仪广场看圣女演示「断肢重生」——而你知道，没有你掐断那一笔，那个断臂骑士会长成四米高的血肉怪物。大教堂的窗里只亮着烛火，塞拉菲娜一个人跪在圣像前，手在发抖。今夜，你可以去找她，也可以等着看明天。'},
+ {g:'t',id:'auction',name:'黄金天平竞拍前夜',date:'AG 1001.02.08',place:'金鸢尾港·黄金天平拍卖行',img:W+'iluvier/stand.webp',scene:'op_auction',hard:1,
+  text:'【高压开局】两天后，月冕女王将在黄金天平上拍；六天后，荆棘修道院的柴堆会点燃；十二天后，火山上的红龙会自燃；四个月后，猎魔团会攻进猩红古堡。你兜里只有几十枚银币，而所有的死线都在同时走。先救谁——就是这一局。'},
+ {g:'r',id:'ignis',name:'火山在哭',date:'AG 1000.10.20',place:'渊喉边缘·矿镇',img:W+'ignis/stand.webp',who:'伊格妮丝',
+  text:'矿镇的酒馆里，老苦役们压低了声音：「火山半腰那条龙在哭。」夜空里有不该有的红光，一阵热风吹过镇子，带着硫磺和铁锈的味道。你抬头望向火山——那里有一个三分钟后就会失控的女孩，正抱着膝盖，等着谁来。'},
+ {g:'r',id:'lilia',name:'圣堂的歌声',date:'AG 1000.10.13',place:'叹息黑森林边·猎人村',img:W+'lilia/stand.webp',who:'莉莉娅',
+  text:'离开驿站的第二天，你在林边的猎人村借宿。猎人们说，林子边缘那座废弃的受难圣堂，夜里有人在唱歌，唱的不是人类的调子。半夜你醒来，风里真的飘着一段很轻的歌——唱到一半，像是怕被人听见，又停了。'},
+ {g:'r',id:'yuel',name:'给骷髅道歉的小姑娘',date:'AG 1000.10.16',place:'黑森林·林边村落',img:W+'yuel/stand.webp',who:'幽尔',
+  text:'林边村子的孩子们在传一件事：埋骨地里住着一个小姑娘，她的骷髅会抢她的糖，她还会跟骷髅说对不起。大人们说那是个死灵法师，叫孩子们别去。你看着通往冥河支流的那条小路——路边的石头上，有人用骨片刻了一行很小的字。'},
+ {g:'r',id:'rosalind',name:'真祖遗骸悬赏',date:'AG 1000.10.25',place:'铁砧集·猎魔团驻点',img:W+'rosalind/stand.webp',who:'罗莎琳德',
+  text:'铁砧集的告示栏上贴着一张新悬赏：「猎魔团招人——猩红古堡，真祖遗骸，完整者另加赏。」接单员是个叫多恩的年轻人，他把单子递给每一个路过的佣兵，眼神却有点躲闪。古堡在北边的林子深处，听说每个月的第一天，那里会亮起一支蜡烛。'},
+ {g:'r',id:'mumu',name:'下水道的粉色眼泪',date:'AG 1000.10.14',place:'帝都外环·棚户区',img:W+'mumu/stand.webp',who:'沐沐',
+  text:'回到帝都外环，你在棚户区的井边歇脚。几个孩子围着下水道口吵吵嚷嚷：「里面有会哭的粉色鼻涕！」一个孩子往里丢了块面包屑。片刻之后，黑暗里亮起两点湿漉漉的粉色，又飞快地缩了回去。'},
+ {g:'r',id:'twins',name:'订制的柴薪',date:'AG 1000.12.21',place:'荆棘修道院·山脚',img:W+'twins/stand.webp',who:'西尔维娅 & 辛西娅',
+  text:'冬至圣祭的事故传遍了帝国，教廷急着找一个替罪羊。修道院山脚的木料商跟你抱怨：「西边那座修道院最近在订新的柴薪，订得急，量还大。」他压低声音：「听说是要烧一个被恶魔附身的修女——一个身子，两张脸。」'},
+ {g:'r',id:'iluvier',name:'验货的邀请',date:'AG 1000.11.20',place:'金鸢尾港·旧货巷',img:W+'iluvier/stand.webp',who:'伊露维尔',stage:'来人',
+  text:'盲眼鉴定师伊芙在旧货巷最深处找到你。黄金天平请她去验一件拍品——一副镀金的奴隶项圈，和项圈底下的人。「那东西底下的人，还活着，而且在等。」十天后，拍卖行要为一位「月冕女王」单开专场；起拍价，十万金。'}];
+var opw=$('#ops'),prev=$('#opPrev'),cf=$('#customF'),sel=OPS[0],group='t';
+function hasScene(o,cb){ if(!o.scene){cb(o.img);return;} var t=new Image();t.onload=function(){cb(SCENE+o.scene+'.webp')};t.onerror=function(){cb(o.img)};t.src=SCENE+o.scene+'.webp'; }
+function renderPrev(){
+  if(sel==='custom'){prev.style.display='none';cf.classList.add('show');return;}
+  cf.classList.remove('show');prev.style.display='block';
+  prev.innerHTML='<h4>'+sel.name+(sel.hard?' <span class="chip" style="color:#c43d58;border-color:#c43d58">高压</span>':'')+'</h4><div class="meta">'+sel.date+'｜'+sel.place+(sel.who?'｜从「'+sel.who+'」的风声开始':'')+'</div><p>'+sel.text+'</p>';
+}
+function renderOps(){
+  opw.innerHTML='';
+  if(group=='c'){var c=el('div','op custom on','<div class="im">✎</div><div class="tx"><b>自定义节点</b><small>任何日期、任何地点</small></div>');opw.appendChild(c);sel='custom';renderPrev();return;}
+  OPS.filter(function(o){return o.g==group}).forEach(function(o){
+    var d=el('div','op'+(sel===o?' on':''),'<div class="im"><em class="'+(o.hard?'hard':'')+'">'+(o.hard?'高压':(o.def?'默认':'AG '+o.date.match(/AG (\d+)/)[1]))+'</em></div><div class="tx"><b>'+o.name+'</b><small>'+o.date+'</small></div>');
+    hasScene(o,function(u){$('.im',d).style.backgroundImage='url('+u+')'});
+    d.onclick=function(){sel=o;$$('.op',opw).forEach(function(x){x.classList.remove('on')});d.classList.add('on');renderPrev()};
+    opw.appendChild(d);});
+  if(sel==='custom'||sel.g!=group){sel=OPS.filter(function(o){return o.g==group})[0];$$('.op',opw)[0].classList.add('on');}
+  renderPrev();
+}
+$$('#opTabs button').forEach(function(b){b.onclick=function(){$$('#opTabs button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');group=b.dataset.g;renderOps()}});
+renderOps();
+$$('#sex button').forEach(function(b){b.onclick=function(){$$('#sex button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');var i=$('#pSex');i.value=b.dataset.v;if(!b.dataset.v)i.focus();}});
+
+function v(id){return ($('#'+id).value||'').trim()}
+function gen(){
+  var L=[];
+  L.push('【开局】');
+  L.push('【玩家档案】');
+  L.push('姓名：'+(v('pName')||'默认'));
+  L.push('性别：'+(v('pSex')||'默认'));
+  L.push('外貌：'+(v('pLook')||'默认'));
+  L.push('性格：'+(v('pChar')||'默认'));
+  L.push('额外设定：'+(v('pExtra')||'默认'));
+  L.push('');
+  if(sel==='custom'){
+    var hard=$('#cHard').checked;
+    L.push('【开局节点】自定义｜'+(v('cDate')||'AG 1000.10.11 夜')+'｜'+(v('cPlace')||'地点由你按这个日期安排')+'｜'+(hard?'高压':'常规'));
+    L.push('【开场】'+(v('cSit')||'按这个日期与地点，从我的处境自然开始。'));
+  }else{
+    L.push('【开局节点】'+sel.name+'｜'+sel.date+'｜'+sel.place+'｜'+(sel.hard?'高压':'常规'));
+    if(sel.who)L.push('【遗民风声】'+sel.who+'·'+(sel.stage||'风声')+'（开局当天放出，倒计时从这一刻起算）');
+    L.push('【开场】'+sel.text.replace(/^【高压开局】/,''));
+  }
+  L.push('');
+  L.push('【我的补充】'+(v('pMore')||'无'));
+  L.push('');
+  L.push('请从这一刻开始写第一幕。');
+  var t=L.join('\n'), o=$('#out');o.style.display='block';o.value=t;return t;
+}
+$('#genBtn').onclick=function(){gen();var o=$('#out');o.focus();o.select();};
+$('#copyBtn').onclick=function(){
+  var o=$('#out'),t=o.value||gen(),b=$('#copyBtn');
+  function done(ok){b.textContent=ok?'✓ 已复制':'请长按手动复制';setTimeout(function(){b.textContent='复制开局'},2200);}
+  o.style.display='block';o.focus();o.select();
+  var ok=false;try{ok=document.execCommand('copy')}catch(e){}
+  if(ok){done(true);return;}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)});}else done(false);
+};
+
+/* ---------- 导航点与入场动画 ---------- */
+var secs=$$('section[data-label]'),dots=$('#dots');
+secs.forEach(function(s){var a=el('a');a.href='#'+s.id;a.innerHTML='<span>'+s.dataset.label+'</span>';dots.appendChild(a)});
+var links=$$('a',dots);
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  $$('.reveal').forEach(function(x){io.observe(x)});
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=secs.indexOf(e.target);links.forEach(function(a,k){a.classList.toggle('on',k==i)})}})},{threshold:.35});
+  secs.forEach(function(s){io2.observe(s)});
+  var io3=new IntersectionObserver(function(es){es.forEach(function(e){var vd=e.target;if(!e.isIntersecting){if(!vd.paused)vd.pause()}else if(vd===hv){vd.play().catch(function(){})}})},{threshold:.05});
+  io3.observe(hv);
+}else{$$('.reveal').forEach(function(x){x.classList.add('in')})}
+})();
+</script>
+</body>
+</html>
