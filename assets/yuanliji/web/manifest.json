@@ -1,0 +1,547 @@
+{
+ "ash": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "aurelia": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "chloe": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "violet": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "seraphina": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "helena": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "ignis": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "lilia": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "yuel": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "rosalind": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "mumu": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "twins": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ },
+ "iluvier": {
+  "stand": "stand.webp",
+  "turn": "turn.webp",
+  "walk": "walk.webp",
+  "expr": [
+   [
+    "蔑视",
+    "e0.webp"
+   ],
+   [
+    "开心",
+    "e1.webp"
+   ],
+   [
+    "羞涩",
+    "e2.webp"
+   ],
+   [
+    "震惊",
+    "e3.webp"
+   ],
+   [
+    "动情",
+    "e4.webp"
+   ]
+  ],
+  "battle": "battle.webp",
+  "r18": [
+   [
+    "pure",
+    "r_pure.webp"
+   ],
+   [
+    "fall",
+    "r_fall.webp"
+   ],
+   [
+    "main",
+    "r_main.webp"
+   ]
+  ]
+ }
+}
