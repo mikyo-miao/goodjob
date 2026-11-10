@@ -1,0 +1,73 @@
+/* =========================================================
+   死装同桌 · 周清禾 — Design Tokens
+   方向：精致清新二次元 · 晴空奶油 × 樱花粉 × 深梅墨线
+   ========================================================= */
+:root{
+  /* ---------- 纸张与天光 ---------- */
+  --bg-page:#f8f6f0;
+  --bg-sky:#eef5f9;
+  --bg-warm:#fbf7ee;
+  --surface-1:rgba(255,253,249,.92);
+  --surface-2:#fffdf8;
+  --surface-note:#fff8e8;
+  --surface-glass:rgba(255,253,248,.86);
+
+  /* ---------- 三级文本 ---------- */
+  --text-1:#23293a;
+  --text-2:#525b70;
+  --text-3:#596277;
+
+  /* ---------- 强调色 ---------- */
+  --accent-primary:#b8455f;
+  --accent-primary-soft:#fff0f4;
+  --accent-pink:#e58ba4;
+  --accent-sky:#3b82c4;
+  --accent-sky-soft:#edf5fc;
+  --accent-stamp:#c83e37;
+  --accent-gold:#b9945c;
+  --plum:#5d3049;
+  --plum-soft:rgba(93,48,73,.14);
+
+  /* ---------- 清透棱镜与画报层 ---------- */
+  --glass-1:linear-gradient(145deg,rgba(255,253,248,.92),rgba(255,247,241,.76));
+  --glass-2:linear-gradient(160deg,rgba(255,253,248,.84),rgba(250,245,255,.68));
+  --glass-dark:linear-gradient(160deg,rgba(20,24,42,.82),rgba(12,16,32,.7));
+  --glass-border:rgba(255,255,255,.7);
+  --glass-inner:inset 0 1px 0 rgba(255,255,255,.92),inset 0 0 0 1px rgba(255,255,255,.36);
+  --glass-shadow:0 18px 46px rgba(35,45,70,.14),0 2px 6px rgba(35,45,70,.05);
+  --refract:linear-gradient(145deg,rgba(255,255,255,.42),rgba(255,240,246,.16) 42%,rgba(221,240,255,.22) 70%,rgba(255,255,255,.05));
+  --sticker-shadow:drop-shadow(0 6px 12px rgba(60,60,90,.22));
+  --world-veil:rgba(248,246,240,.72);
+
+  /* ---------- 线、阴影、圆角 ---------- */
+  --border-hairline:rgba(35,41,58,.10);
+  --border-strong:rgba(35,41,58,.20);
+  --border-accent:rgba(184,69,95,.34);
+  --shadow-card:0 12px 32px rgba(35,45,70,.07),inset 0 1px 0 rgba(255,255,255,.9);
+  --shadow-float:0 20px 48px rgba(35,45,70,.12),inset 0 1px 0 rgba(255,255,255,.95);
+
+  --radius-xs:4px;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --radius-xl:20px;
+
+  /* ---------- 字体 ---------- */
+  --font-sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --font-serif:"Source Han Serif SC","Noto Serif SC","Songti SC","STSong",serif;
+  --font-mono:"JetBrains Mono","Cascadia Mono","Consolas","SF Mono",monospace;
+
+  /* ---------- 字号 ---------- */
+  --fs-meta:12px;
+  --fs-body:14px;
+  --fs-lead:16px;
+  --fs-h3:20px;
+  --fs-h2:clamp(26px,3vw,34px);
+  --fs-hero:clamp(36px,4.6vw,56px);
+
+  /* ---------- 节奏 ---------- */
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --gutter:clamp(20px,4vw,56px);
+  --hud-h:64px;
+  --sec-pad:clamp(64px,8vw,110px);
+}
