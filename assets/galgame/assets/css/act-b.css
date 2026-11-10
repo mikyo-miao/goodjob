@@ -1,0 +1,82 @@
+/* =========================================================
+   ACT II · 宽银幕溯源
+   ========================================================= */
+.act-b{padding:0}
+
+.letterbox{position:absolute;left:0;right:0;z-index:var(--z-ui);display:flex;align-items:center;gap:16px;padding:0 var(--pad);background:rgba(3,6,12,.94)}
+.letterbox--top{top:0;height:calc(var(--hud-h) + clamp(38px,7vh,66px));padding-top:var(--hud-h);border-bottom:1px solid rgba(244,239,228,.06)}
+.letterbox--bottom{bottom:0;height:clamp(74px,11vh,104px);border-top:1px solid rgba(244,239,228,.06);justify-content:space-between;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.lb-top__left{display:flex;align-items:center;gap:14px;min-width:0}
+.lb-kicker{font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:var(--gold);white-space:nowrap}
+.lb-title{font-family:var(--ser);font-size:clamp(13px,1.4vw,16px);letter-spacing:.16em;color:rgba(244,239,228,.82);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-top__right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.mem-counter{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold-2)}
+
+/* 居中诗意字幕 */
+.mem-caption{
+  position:absolute;left:50%;bottom:clamp(118px,17vh,168px);transform:translateX(-50%);
+  z-index:var(--z-ui);width:min(880px,80vw);text-align:center;pointer-events:none;
+  opacity:0;transition:opacity .6s var(--ease);
+}
+.mem-caption.is-on{opacity:1}
+.mem-caption p{
+  font-family:var(--ser);font-size:clamp(14px,1.62vw,19px);line-height:2;
+  letter-spacing:.08em;color:#f7f2e7;
+  text-shadow:0 2px 24px rgba(0,0,0,.85),0 0 50px rgba(0,0,0,.6);
+  display:inline;padding:4px 0;
+  background:linear-gradient(180deg,transparent 78%,rgba(217,184,114,.14) 78%);
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+}
+.mem-caption__line{display:block;width:44px;height:1px;margin:16px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* 扫描光 */
+.mem-scan{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden;opacity:.5}
+.mem-scan i{
+  position:absolute;left:0;right:0;height:26vh;top:-30vh;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.05) 45%,rgba(217,184,114,.07) 55%,transparent);
+  animation:mem-scan 9s linear infinite;
+}
+@keyframes mem-scan{to{top:120%}}
+
+.mem-vignette{position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(120% 100% at 50% 50%,transparent 52%,rgba(3,6,12,.5) 100%)}
+
+/* 六节点时间轴 */
+.mem-track{display:flex;align-items:center;gap:0;flex:1;min-width:0;overflow-x:auto;padding:4px 0;scrollbar-width:none}
+.mem-track::-webkit-scrollbar{display:none}
+.mem-node{
+  position:relative;display:flex;align-items:center;gap:6px;padding:6px 10px 6px 8px;
+  color:var(--t-3);white-space:nowrap;transition:.35s var(--ease);flex:none;
+}
+.mem-node::after{
+  content:"";position:absolute;left:100%;top:50%;width:clamp(14px,2vw,34px);height:1px;
+  background:repeating-linear-gradient(90deg,rgba(217,184,114,.34) 0 3px,transparent 3px 7px);
+}
+.mem-node:last-child::after{display:none}
+.mem-node i{width:6px;height:6px;border:1px solid currentColor;border-radius:50%;transition:.35s;flex:none}
+.mem-node b{font-family:var(--mono);font-size:9px;letter-spacing:.08em;opacity:.65}
+.mem-node span{font-size:10.5px;letter-spacing:.08em}
+.mem-node:hover{color:var(--gold-2)}
+.mem-node.is-on{color:var(--gold-2)}
+.mem-node.is-on i{background:var(--gold-2);border-color:var(--gold-2);box-shadow:0 0 10px var(--gold),0 0 20px rgba(217,184,114,.5);transform:scale(1.25)}
+.mem-node.is-on span{color:#fff}
+.mem-node.is-done i{background:rgba(217,184,114,.4);border-color:transparent}
+
+.mem-next{flex:none;padding:9px 20px;font-size:12px}
+.mem-next.is-locked{opacity:.5;pointer-events:none}
+
+/* 宽银幕激活时，背景轻微放大 */
+.act-b .media__video,.act-b .media__poster{transform:scale(1.02)}
+.act-b.is-active .media__video{animation:lenis 26s var(--ease-in-out) infinite alternate}
+@keyframes lenis{from{transform:scale(1.02)}to{transform:scale(1.07)}}
+
+@media (max-width:900px){
+  .letterbox--top{height:calc(var(--hud-h) + 44px)}
+  .lb-title{display:none}
+  .mem-caption{width:88vw;bottom:clamp(150px,22vh,190px)}
+  .mem-node span{display:none}
+  .mem-node.is-on span{display:inline}
+  .letterbox--bottom{height:auto;padding-top:8px;padding-bottom:10px;gap:8px}
+  .mem-track{width:100%}
+  .mem-next{width:100%;justify-content:center}
+}
