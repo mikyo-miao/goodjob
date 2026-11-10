@@ -1,0 +1,209 @@
+/* =========================================================
+   ACT I · 高三(7)班 死装表象
+   ========================================================= */
+.act-a{padding:var(--hud-h) 0 0}
+
+/* 章节眉标 */
+.act-a__chapter{
+  position:absolute;left:var(--pad);top:calc(var(--hud-h) + clamp(16px,3vh,34px));
+  z-index:var(--z-ui);display:flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:.2em;color:rgba(244,239,228,.62);
+  text-shadow:0 2px 14px rgba(0,0,0,.6);
+  opacity:0;transform:translateY(-8px);transition:.8s var(--ease) .3s;
+}
+.act-a.is-active .act-a__chapter{opacity:1;transform:none}
+.act-a__chapter i{width:22px;height:1px;background:var(--gold);box-shadow:0 0 8px var(--gold-glow)}
+
+/* 闲言碎语气泡 */
+.gossip{
+  position:absolute;z-index:var(--z-ui);max-width:min(300px,30vw);
+  padding:11px 15px 12px 16px;
+  background:linear-gradient(160deg,rgba(14,20,36,.82),rgba(9,14,26,.72));
+  border:1px solid rgba(244,239,228,.12);
+  border-left:2px solid rgba(134,227,255,.5);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 14px 36px rgba(0,0,0,.4);
+  cursor:pointer;transition:.4s var(--ease);
+  opacity:0;transform:translateY(10px);
+}
+.act-a.is-active .gossip{opacity:1;transform:none}
+.act-a.is-active .gossip--1{transition-delay:.9s}
+.act-a.is-active .gossip--2{transition-delay:1.4s}
+.act-a.is-active .gossip--3{transition-delay:1.9s}
+.gossip:hover{border-left-color:var(--pink);background:linear-gradient(160deg,rgba(20,26,44,.92),rgba(12,18,32,.86));transform:translateY(-2px)}
+.gossip.is-poked{border-left-color:var(--pink);box-shadow:0 0 0 1px rgba(255,133,179,.2),0 16px 40px rgba(0,0,0,.5)}
+.gossip__who{
+  display:block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;
+  color:var(--ice);margin-bottom:5px;opacity:.85;
+}
+.gossip p{font-family:var(--hand);font-size:13.5px;line-height:1.8;color:rgba(244,239,228,.82);font-style:italic}
+.gossip__pin{
+  position:absolute;right:12px;bottom:9px;width:5px;height:5px;transform:rotate(45deg);
+  background:rgba(217,184,114,.5);box-shadow:0 0 8px rgba(217,184,114,.5);
+}
+.gossip--1{left:clamp(16px,6vw,110px);top:24%}
+.gossip--2{right:clamp(16px,5vw,92px);top:21%}
+.gossip--3{right:clamp(16px,10vw,180px);top:41%}
+.gossip--3 p{font-size:12.5px;opacity:.9}
+.gossip--3 .gossip__who{color:var(--amber)}
+
+/* =========================================================
+   ADV 对话框
+   ========================================================= */
+.adv{
+  position:absolute;left:50%;bottom:clamp(16px,3.4vh,34px);
+  transform:translateX(-50%);
+  width:min(1120px,86vw);z-index:var(--z-ui);
+}
+.adv__frame{
+  position:relative;padding:16px clamp(18px,2.4vw,32px) 14px;
+  background:
+    linear-gradient(160deg,rgba(12,18,34,.9),rgba(8,12,24,.86) 60%,rgba(10,15,28,.9));
+  border:1px solid rgba(217,184,114,.28);
+  box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.035),inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+  min-height:clamp(158px,19vh,196px);
+  display:flex;flex-direction:column;
+  clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+}
+/* 四角星芒 */
+.adv__frame::before,.adv__frame::after{
+  content:"✦";position:absolute;font-size:8px;color:var(--gold);opacity:.8;
+}
+.adv__frame::before{left:7px;top:6px}
+.adv__frame::after{right:8px;bottom:6px}
+.adv__spine{position:absolute;right:14px;top:16px;display:flex;flex-direction:column;gap:5px;opacity:.4}
+.adv__spine i{width:1px;height:8px;background:var(--gold)}
+.adv__spine i:nth-child(2){height:16px;opacity:.7}
+.adv__spine i:nth-child(3){height:5px;opacity:.4}
+
+.adv__head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.adv__name{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.adv__glasses{width:30px;height:13px;fill:none;stroke:var(--ice);stroke-width:1.1;opacity:.8;filter:drop-shadow(0 0 6px rgba(134,227,255,.4))}
+.adv__name b{font-family:var(--ser);font-size:clamp(14px,1.5vw,17px);letter-spacing:.12em;font-weight:700;color:#fff;text-shadow:0 0 18px rgba(217,184,114,.25)}
+.adv__mode{
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--ice);
+  padding:2px 7px;border:1px solid rgba(134,227,255,.26);background:rgba(134,227,255,.06);
+}
+.adv__vitals{display:flex;align-items:center;gap:7px;font-family:var(--mono)}
+.adv__vlabel{font-size:8.5px;letter-spacing:.16em;color:var(--t-3)}
+.adv__wave{width:90px;height:20px;overflow:visible}
+.adv__wave path{fill:none;stroke:var(--pink);stroke-width:1.2;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(255,133,179,.7))}
+.adv__bpm{font-size:17px;font-weight:700;color:var(--pink);letter-spacing:.02em;min-width:26px;text-align:right;text-shadow:0 0 12px rgba(255,133,179,.5)}
+.adv__unit{font-size:8px;color:var(--t-3);letter-spacing:.1em}
+
+.adv__line{
+  font-family:var(--ser);font-size:clamp(14.5px,1.55vw,18px);line-height:1.85;
+  letter-spacing:.04em;color:#f6f1e7;min-height:2.6em;
+  text-shadow:0 2px 20px rgba(0,0,0,.5),0 0 26px rgba(217,184,114,.08);
+  flex:1;
+}
+.adv__line .caret{
+  display:inline-block;width:1px;height:1.05em;margin-left:2px;
+  background:var(--gold-2);vertical-align:-.16em;animation:caret 1s steps(1) infinite;
+}
+@keyframes caret{0%,55%{opacity:1}56%,100%{opacity:0}}
+
+.adv__inner{
+  position:relative;margin-top:6px;padding:7px 12px 7px 44px;
+  background:linear-gradient(90deg,rgba(255,133,179,.12),rgba(255,133,179,.04) 60%,transparent);
+  border-left:1px solid rgba(255,133,179,.5);
+  min-height:34px;
+  opacity:0;transform:translateY(4px);transition:.5s var(--ease);
+}
+.adv__inner.is-on{opacity:1;transform:none}
+.adv__inner-tag{
+  position:absolute;left:10px;top:8px;font-family:var(--hand);font-size:10px;
+  color:var(--pink);letter-spacing:.16em;
+}
+.adv__inner p{font-family:var(--hand);font-size:clamp(11.5px,1.15vw,13px);line-height:1.75;color:rgba(255,194,216,.92);font-style:italic}
+
+.adv__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;flex-wrap:wrap}
+.adv__dots{display:flex;gap:6px}
+.adv__dots i{width:14px;height:2px;background:rgba(244,239,228,.16);transition:.4s}
+.adv__dots i.is-on{background:var(--gold);box-shadow:0 0 8px var(--gold-glow)}
+.adv__btns{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.adv__btns .btn{padding:7px 15px;font-size:11.5px}
+.adv__btns .btn--star{padding:8px 18px;font-size:11.5px;letter-spacing:.06em}
+
+.act-a__hint{
+  position:absolute;right:var(--pad);top:calc(var(--hud-h) + 16px);
+  z-index:var(--z-ui);font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  color:rgba(244,239,228,.4);text-align:right;
+  opacity:0;transition:.8s var(--ease) 1.2s;
+}
+.act-a.is-active .act-a__hint{opacity:1}
+
+/* 同学气泡被点后的"她手指收紧"提示 */
+.gossip.is-poked::after{
+  content:"她的指节无声地收紧了一点。";
+  position:absolute;left:0;right:0;top:calc(100% + 8px);
+  font-family:var(--hand);font-size:11px;color:rgba(255,133,179,.85);
+  letter-spacing:.04em;text-align:right;
+  animation:ghost-in .5s var(--ease);
+}
+@keyframes ghost-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* 沉浸模式下隐藏 UI */
+body.is-immersive .hud,
+body.is-immersive .adv,
+body.is-immersive .gossip,
+body.is-immersive .act-a__chapter,
+body.is-immersive .act-a__hint,
+body.is-immersive .c-head,
+body.is-immersive .vitals,
+body.is-immersive .wardrobe,
+body.is-immersive .archive,
+body.is-immersive .c-next,
+body.is-immersive .d-head,
+body.is-immersive .play-nav,
+body.is-immersive .play-info,
+body.is-immersive .play-map,
+body.is-immersive .d-foot,
+body.is-immersive .e-head,
+body.is-immersive .id-gallery,
+body.is-immersive .e-bottom,
+body.is-immersive .e-output,
+body.is-immersive .e-hint,
+body.is-immersive .letterbox,
+body.is-immersive .mem-caption{
+  opacity:0!important;pointer-events:none!important;transform:translateY(10px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+body.is-immersive .hud{transform:translateY(-104%)!important}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:900px){
+  .gossip{max-width:38vw;padding:9px 12px}
+  .gossip p{font-size:12px}
+  .gossip--2{top:16%}
+  .gossip--3{display:none}
+  .adv{width:92vw}
+}
+@media (max-width:640px){
+  .gossip--1{left:10px;top:14%}
+  .gossip--2{right:10px;top:27%}
+  .gossip{max-width:52vw}
+  .gossip__who{font-size:8px}
+  .gossip p{font-size:11px;line-height:1.65}
+  .adv{bottom:10px;width:94vw}
+  .adv__frame{padding:10px 12px 9px;min-height:0;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+  .adv__head{margin-bottom:3px;gap:6px}
+  .adv__name{gap:6px}
+  .adv__name b{font-size:13px;letter-spacing:.08em}
+  .adv__glasses{width:22px;height:10px}
+  .adv__mode{display:none}
+  .adv__vlabel{display:none}
+  .adv__wave{width:42px;height:14px}
+  .adv__bpm{font-size:14px}
+  .adv__line{font-size:13px;line-height:1.72;min-height:0}
+  .adv__inner{padding:5px 8px 5px 34px;margin-top:4px;min-height:26px}
+  .adv__inner-tag{top:4px;font-size:9px}
+  .adv__inner p{font-size:10.5px;line-height:1.58}
+  .adv__foot{margin-top:6px}
+  .adv__dots{display:none}
+  .adv__btns{width:100%;justify-content:stretch}
+  .adv__btns .btn{flex:1;padding:6px 8px;font-size:10.5px;letter-spacing:.04em}
+  .adv__btns .btn--star{font-size:10px;padding:7px 9px}
+  .act-a__hint{display:none}
+}
