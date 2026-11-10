@@ -1,0 +1,616 @@
+/* =========================================================
+   Beautify pass · 星轨金 × 粉笔灰 × 纸张档案
+   目标：在不破坏信息层级的前提下，把「暗色极简」加浓为
+   「旧校舍写实 × 深色星图 × 手作纸张」的层次。
+   ========================================================= */
+
+/* ---------- 全局：暖冷双光源 + 金色视口框 ---------- */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(52% 48% at 8% 18%,rgba(255,190,118,.10),transparent 68%),
+    radial-gradient(46% 52% at 94% 72%,rgba(134,227,255,.07),transparent 70%),
+    radial-gradient(70% 60% at 50% 108%,rgba(217,184,114,.08),transparent 66%);
+}
+body::after{
+  content:"";position:fixed;inset:10px;z-index:40;pointer-events:none;
+  border:1px solid rgba(217,184,114,.14);
+  background:
+    linear-gradient(var(--gold),var(--gold)) left top/22px 1px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) left top/1px 22px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right top/22px 1px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right top/1px 22px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) left bottom/22px 1px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) left bottom/1px 22px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right bottom/22px 1px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right bottom/1px 22px no-repeat;
+  opacity:.55;
+}
+@media (max-width:760px){ body::after{inset:5px} }
+
+/* ---------- 标题：粉笔红划线 + 小型英文索引 ---------- */
+.c-head__title,.d-head h2,.e-head h2{position:relative;padding-bottom:10px}
+.c-head__title::after,.d-head h2::after,.e-head h2::after{
+  content:"";position:absolute;left:0;bottom:0;width:78px;height:3px;
+  background:linear-gradient(90deg,var(--red),rgba(217,80,63,.15));
+  transform:skewX(-16deg);box-shadow:0 1px 0 rgba(255,255,255,.12);
+}
+.c-head__eyebrow,.d-kicker,.e-kicker{display:inline-flex;align-items:center;gap:8px}
+.c-head__eyebrow::before,.d-kicker::before,.e-kicker::before{
+  content:"";width:16px;height:1px;background:var(--gold);
+}
+.e-head h2{font-size:clamp(22px,2.6vw,34px)}
+.e-head h2::after{width:104px;height:4px}
+
+/* ---------- HUD：黄铜键帽 + 星轨节点 ---------- */
+.hud{
+  background:linear-gradient(180deg,rgba(5,8,15,.94),rgba(8,12,22,.7) 70%,rgba(5,8,15,0));
+  border-bottom:1px solid rgba(217,184,114,.16);
+}
+.day-pill{
+  height:30px;border-radius:2px;
+  background:
+    linear-gradient(180deg,rgba(217,184,114,.22),rgba(217,184,114,.05)),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 2px,transparent 2px 6px);
+  box-shadow:inset 0 0 0 1px rgba(255,246,220,.12),0 4px 14px rgba(0,0,0,.35);
+}
+.day-pill::after{
+  content:"";position:absolute;left:6px;right:6px;bottom:2px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(184,70,63,.7),transparent);
+}
+.hud-btn{
+  border-radius:2px;
+  background:linear-gradient(180deg,rgba(244,239,228,.09),rgba(244,239,228,.03));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 2px 0 rgba(0,0,0,.35);
+}
+.rail-node i{box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+
+/* ---------- 第一幕：议论纸条 ---------- */
+.gossip{
+  background:
+    linear-gradient(168deg,rgba(249,242,227,.97),rgba(233,221,199,.94)),
+    repeating-linear-gradient(0deg,rgba(90,70,40,.05) 0 1px,transparent 1px 22px);
+  border:1px solid rgba(90,70,40,.28);
+  border-left:3px solid rgba(184,70,63,.55);
+  box-shadow:0 14px 30px rgba(0,0,0,.38),inset 0 0 0 1px rgba(255,255,255,.5);
+  transform:rotate(-1.1deg);
+}
+.gossip--2{transform:rotate(1.2deg)}
+.gossip--3{transform:rotate(-.6deg)}
+.gossip::before{
+  content:"";position:absolute;left:50%;top:-8px;width:46px;height:14px;
+  transform:translateX(-50%) rotate(-3deg);
+  background:repeating-linear-gradient(45deg,rgba(255,247,225,.8) 0 6px,rgba(238,224,196,.7) 6px 12px);
+  box-shadow:0 2px 4px rgba(0,0,0,.15);
+}
+.gossip__who{color:#8a5a3a}
+.gossip p{color:#33425a;font-style:normal}
+.gossip__pin{
+  width:8px;height:8px;border-radius:50%;transform:none;
+  background:radial-gradient(circle at 35% 30%,#e9897d,#a8443c 70%);
+  box-shadow:0 1px 3px rgba(0,0,0,.4);
+}
+.gossip.is-poked{border-left-color:#a8443c;box-shadow:0 0 0 2px rgba(184,70,63,.2),0 16px 34px rgba(0,0,0,.42)}
+.gossip.is-poked::after{color:#a8443c}
+
+/* ---------- 第一幕 ADV：双线金框 + 手作便签心声 ---------- */
+.adv__frame{
+  background:
+    linear-gradient(160deg,rgba(16,22,38,.94),rgba(8,12,24,.9) 58%,rgba(12,17,30,.94)),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 4px);
+  border:1px solid rgba(217,184,114,.5);
+  box-shadow:0 28px 70px rgba(0,0,0,.66),inset 0 0 0 1px rgba(255,255,255,.05),inset 0 0 38px rgba(217,184,114,.05);
+}
+.adv__frame::before{content:"✦";}
+.adv__frame::after{content:"✦";}
+.adv__inner{
+  background:
+    linear-gradient(180deg,rgba(250,243,228,.97),rgba(235,223,200,.95));
+  border:1px solid rgba(90,70,40,.25);border-left:3px solid #b8463f;
+  box-shadow:0 4px 12px rgba(0,0,0,.25),inset 0 0 0 1px rgba(255,255,255,.55);
+  transform:rotate(-.35deg);
+}
+.adv__inner::before{
+  content:"";position:absolute;left:-7px;top:-7px;width:36px;height:13px;z-index:2;
+  background:repeating-linear-gradient(45deg,rgba(255,190,118,.7) 0 6px,rgba(255,190,118,.35) 6px 12px);
+  transform:rotate(-9deg);box-shadow:0 2px 4px rgba(0,0,0,.2);
+}
+.adv__inner-tag{color:#a8443c}
+.adv__inner p{color:#53402f;font-style:normal;font-size:clamp(12px,1.15vw,13.5px)}
+.adv__name b{position:relative}
+.adv__name b::after{
+  content:"";position:absolute;left:0;right:0;bottom:-5px;height:2px;
+  background:linear-gradient(90deg,rgba(184,70,63,.8),rgba(184,70,63,0));
+  transform:skewX(-14deg);
+}
+.adv__mode{border-radius:2px}
+.adv__btns .btn{border-radius:2px}
+.adv__btns .btn--star{
+  background:
+    linear-gradient(120deg,rgba(134,227,255,.18),rgba(255,133,179,.16) 55%,rgba(217,184,114,.24)),
+    repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 3px,transparent 3px 8px);
+}
+.adv__spine{opacity:.7}
+
+/* ---------- 第二幕：胶片孔 + 金色时间轴 ---------- */
+.letterbox{
+  background:
+    linear-gradient(180deg,#03060c,#05080f),
+    repeating-linear-gradient(90deg,transparent 0 22px,rgba(244,239,228,.1) 22px 26px);
+}
+.letterbox--top::after,.letterbox--bottom::before{
+  content:"";position:absolute;left:0;right:0;height:6px;opacity:.5;
+  background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(244,239,228,.32) 18px 26px);
+}
+.letterbox--top::after{bottom:-7px}
+.letterbox--bottom::before{top:-7px}
+.mem-caption::before{
+  content:"“";position:absolute;left:50%;top:-64px;transform:translateX(-50%);
+  font-family:var(--ser);font-size:96px;line-height:1;color:rgba(217,184,114,.18);
+  pointer-events:none;
+}
+.mem-track{position:relative}
+.mem-track::before{
+  content:"";position:absolute;left:0;right:0;top:50%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(217,184,114,.45),transparent);
+}
+.mem-node{position:relative;z-index:1}
+.mem-node.is-on b{color:var(--gold-2)}
+.mem-node.is-on::before{
+  content:"";position:absolute;left:50%;top:50%;width:26px;height:26px;
+  transform:translate(-50%,-50%);border:1px solid rgba(217,184,114,.3);border-radius:50%;
+  animation:mem-halo 2.8s var(--ease-in-out) infinite;
+}
+@keyframes mem-halo{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(.8)}50%{opacity:0;transform:translate(-50%,-50%) scale(1.4)}}
+
+/* ---------- 第三幕：星图/星轨底盘 ---------- */
+.media--c .media__poster{filter:brightness(.72) saturate(.92)}
+.media__grade--c{
+  background:
+    radial-gradient(70% 70% at 50% 42%,rgba(24,32,58,.06),rgba(5,8,15,.7) 74%,rgba(4,6,12,.95) 100%),
+    linear-gradient(180deg,rgba(6,10,20,.66),transparent 24%,transparent 62%,rgba(5,8,15,.94));
+}
+.stage-orbit{
+  position:absolute;left:50%;top:47%;width:min(76vh,760px);aspect-ratio:1;
+  transform:translate(-50%,-50%);z-index:2;pointer-events:none;opacity:.22;
+}
+.stage-orbit i{position:absolute;border:1px solid rgba(217,184,114,.7);border-radius:50%}
+.stage-orbit i:nth-child(1){inset:2%;border-style:dashed;animation:orbit 110s linear infinite}
+.stage-orbit i:nth-child(2){inset:17%;border-style:double;border-width:3px;animation:orbit 150s linear infinite reverse}
+.stage-orbit i:nth-child(3){inset:33%;border-color:rgba(134,227,255,.55);animation:orbit 80s linear infinite}
+.stage-orbit span{
+  position:absolute;left:50%;top:50%;width:1px;height:48%;
+  transform-origin:50% 0;background:linear-gradient(var(--gold),transparent);
+  animation:orbit 46s linear infinite;
+}
+.stage-orbit::before{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  background:
+    radial-gradient(circle at 12% 28%,rgba(255,236,198,.9) 0 1.5px,transparent 2px),
+    radial-gradient(circle at 78% 14%,rgba(160,225,255,.9) 0 1.5px,transparent 2px),
+    radial-gradient(circle at 88% 66%,rgba(255,236,198,.8) 0 1.5px,transparent 2px),
+    radial-gradient(circle at 26% 82%,rgba(255,133,179,.7) 0 1.5px,transparent 2px);
+}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.doll-glow{
+  background:radial-gradient(ellipse at 50% 62%,rgba(255,214,150,.22),rgba(134,227,255,.06) 46%,transparent 72%);
+  filter:blur(24px);
+}
+.doll{filter:drop-shadow(0 36px 46px rgba(0,0,0,.62)) drop-shadow(0 0 34px rgba(217,184,114,.12))}
+
+/* ---------- 第三幕：黑板监测面板 ---------- */
+.vitals{
+  background:
+    linear-gradient(165deg,rgba(30,47,39,.96),rgba(17,28,23,.94)),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 4px);
+  border:1px solid rgba(217,184,114,.34);
+  box-shadow:
+    inset 0 0 0 5px #5f3f29,
+    inset 0 0 0 6px rgba(255,246,220,.18),
+    inset 0 0 44px rgba(0,0,0,.55),
+    0 20px 44px rgba(0,0,0,.5);
+  border-radius:3px;
+}
+.vitals::before{
+  content:"高三(7)班 · 实时监测";color:#f0e6cf;background:rgba(8,12,20,.65);
+  border-color:rgba(255,246,220,.22);font-family:var(--mono);letter-spacing:.12em;
+}
+.vitals__row>span{color:#b9c9b8;font-family:var(--hand);font-size:11px}
+.vitals__row b{color:#f5e3ad;text-shadow:0 0 8px rgba(255,236,198,.2)}
+.vitals__row b em{color:inherit}
+.vitals__bar{background:rgba(255,255,255,.14)}
+.vitals__bar i{background:linear-gradient(90deg,#ffd98a,#ff9db3)}
+.vitals__row--bpm b{color:#ffb3c8}
+.vitals__ecg path{stroke:#ffb3c8;stroke-width:1.2}
+.vitals__meta span{color:#a9b8a7;font-family:var(--hand)}
+.vitals__meta b{color:#f0e6cf}
+.vitals__meta b em{color:#ffb3c8}
+.vitals__note{
+  background:rgba(255,246,220,.07);border-left:2px solid #e0b489;
+  color:#f0d9c8;font-family:var(--hand);font-size:11.5px;
+}
+.hs-toggle{border-color:rgba(255,246,220,.22);background:rgba(255,246,220,.06);color:#f5e3ad}
+
+/* ---------- 第三幕：衣橱胶片架 ---------- */
+.wardrobe{
+  background:
+    linear-gradient(165deg,rgba(38,29,22,.94),rgba(15,12,10,.92)),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 5px);
+  border:1px solid rgba(217,184,114,.4);
+  box-shadow:0 18px 44px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,246,220,.08);
+  border-radius:3px;
+}
+.wardrobe__head{border-bottom-color:rgba(217,184,114,.24)}
+.wardrobe__head span{color:#e0b489}
+.wardrobe__head b{color:#f7ecd4}
+.wardrobe__rail{position:relative;padding-left:9px}
+.wardrobe__rail::before{
+  content:"";position:absolute;left:2px;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,transparent,rgba(217,184,114,.55),transparent);
+}
+.wr{
+  border:1px solid rgba(217,184,114,.1);
+  background:linear-gradient(90deg,rgba(244,239,228,.04),transparent 70%);
+}
+.wr::before{
+  content:"";width:5px;height:5px;border:1px solid rgba(217,184,114,.7);
+  transform:rotate(45deg);flex:none;
+}
+.wr em{color:#c9a46b}
+.wr b{color:#e7dcc7}
+.wr:hover{background:rgba(217,184,114,.1);border-color:rgba(217,184,114,.3)}
+.wr.is-on{
+  background:linear-gradient(90deg,rgba(217,184,114,.22),rgba(217,184,114,.02));
+  border-color:rgba(217,184,114,.55);
+  box-shadow:inset 0 0 0 1px rgba(255,246,220,.1);
+}
+.wr.is-on b{color:#fff8e7}
+
+/* ---------- 第三幕：心声纸条 ---------- */
+.doll-bubble{
+  background:
+    linear-gradient(170deg,rgba(250,243,228,.98),rgba(236,224,201,.96));
+  border:1px solid rgba(90,70,40,.3);
+  box-shadow:0 18px 40px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.6);
+  transform:rotate(-.7deg);
+}
+.doll-bubble::before{
+  background:rgba(250,243,228,.98);border-color:rgba(90,70,40,.3);
+}
+.doll-bubble b{color:#a8443c}
+.doll-bubble p{color:#2b3a52;font-family:var(--ser)}
+.doll-bubble__inner{color:#7a4a56;border-top-color:rgba(168,68,60,.28)}
+.doll-bubble::after{
+  content:"";position:absolute;right:12px;top:-6px;width:42px;height:13px;
+  background:repeating-linear-gradient(45deg,rgba(255,190,118,.75) 0 6px,rgba(255,190,118,.35) 6px 12px);
+  transform:rotate(4deg);box-shadow:0 2px 4px rgba(0,0,0,.18);
+}
+
+/* ---------- 第三幕：档案抽屉改为纸本 ---------- */
+.archive{
+  background:
+    linear-gradient(180deg,#f6eedf,#e9dcc5),
+    repeating-linear-gradient(0deg,rgba(90,70,40,.035) 0 1px,transparent 1px 24px);
+  border:1px solid rgba(90,70,40,.36);border-bottom:0;
+  box-shadow:0 -20px 50px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.7);
+}
+.archive__handle{background:transparent;color:#2a2419}
+.archive__handle:hover{background:rgba(90,70,40,.05)}
+.archive__grip{background:#b8463f}
+.archive__grip::before,.archive__grip::after{background:rgba(184,70,63,.3)}
+.archive__handle b{color:#2a2419}
+.archive__hint{color:#8a7a58}
+.archive__hint i{color:#a8443c}
+.archive__tabs{border-bottom-color:rgba(90,70,40,.18)}
+.a-tab{color:#6d5d45}
+.a-tab:hover{color:#2a2419;background:rgba(255,255,255,.45)}
+.a-tab.is-on{color:#2a2419;border-color:rgba(90,70,40,.35);background:rgba(255,255,255,.65);box-shadow:0 1px 0 #fff}
+.a-tab i{color:#a8443c}
+.a-grid{background:rgba(90,70,40,.15)}
+.a-grid>div{background:rgba(255,255,255,.55)}
+.a-grid span{color:#8a6b3a}
+.a-grid b{color:#26324a}
+.a-grid em{color:#5d5342}
+.a-scraps article{background:rgba(255,255,255,.55);border:1px solid rgba(90,70,40,.18);border-left:3px solid #b8463f;box-shadow:0 4px 10px rgba(90,70,40,.1)}
+.a-scraps i{color:#a8443c}
+.a-scraps b{color:#26324a}
+.a-scraps p{color:#4a4050}
+.a-voices button{background:rgba(255,255,255,.4);border-color:rgba(90,70,40,.15)}
+.a-voices b{color:#26324a}
+.a-voices span{color:#6d5d45}
+.a-voices button.is-on{background:rgba(255,255,255,.72);border-color:#b8463f}
+.a-voice-out{background:rgba(255,255,255,.5);border-left-color:#b8463f}
+.a-voice-k{color:#a8443c}
+.a-voice-out p{color:#26324a}
+.a-voice-out em{color:#5d5342}
+.a-polaroid{box-shadow:0 8px 18px rgba(90,70,40,.22)}
+.a-polaroid-note{color:#6d5d45}
+.a-polaroids{position:relative}
+
+/* ---------- 第四幕：票根与胶片框 ---------- */
+.pn{
+  background:
+    linear-gradient(120deg,rgba(28,33,46,.9),rgba(14,18,28,.7)),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 5px);
+  border:1px solid rgba(217,184,114,.16);
+}
+.pn::before{width:3px}
+.pn:hover{border-color:rgba(217,184,114,.4)}
+.pn.is-on{border-color:rgba(217,184,114,.55);box-shadow:inset 0 0 0 1px rgba(255,246,220,.08)}
+.pn i{color:#e0b489}
+.pn em{border-color:rgba(217,184,114,.25);color:#c9a46b}
+.pn.is-on em{color:#f5e3ad}
+.play-media{border-color:rgba(217,184,114,.4);box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,246,220,.08)}
+.play-media__frame{inset:12px}
+.corner{width:22px;height:22px;border-color:rgba(255,246,220,.7)}
+.play-media__tag{background:rgba(5,8,15,.85);border-color:rgba(217,184,114,.45);color:#f5e3ad}
+.play-info{
+  background:linear-gradient(120deg,rgba(26,31,44,.92),rgba(12,16,26,.78));
+  border:1px solid rgba(217,184,114,.18);border-left:3px solid #b8463f;
+}
+.play-info .pi-k{color:#e0b489}
+.play-map button{border-color:rgba(217,184,114,.16)}
+.play-map button.is-on{background:rgba(217,184,114,.16);border-color:rgba(217,184,114,.5);color:#f5e3ad}
+.d-foot .btn{border-radius:2px}
+
+/* ---------- 第五幕：金箔卡 + 纸本少年档案 + 契约 ---------- */
+.idcard__inner{
+  border:1px solid rgba(217,184,114,.55);
+  box-shadow:0 18px 40px rgba(0,0,0,.55),inset 0 0 0 5px rgba(5,8,15,.6),inset 0 0 0 6px rgba(217,184,114,.25);
+}
+.idcard__inner::before{
+  content:"";position:absolute;inset:8px;border:1px solid rgba(255,246,220,.22);pointer-events:none;z-index:3;
+}
+.idcard__inner::after{
+  content:"✦";position:absolute;right:12px;top:10px;z-index:4;color:#f5e3ad;font-size:11px;
+  text-shadow:0 0 8px rgba(217,184,114,.6);
+}
+.idcard.is-on .idcard__inner{
+  box-shadow:0 0 0 1px rgba(217,184,114,.5),0 0 38px rgba(217,184,114,.26),0 26px 60px rgba(0,0,0,.62),inset 0 0 0 5px rgba(5,8,15,.55),inset 0 0 0 6px rgba(255,246,220,.35);
+}
+.v-form{
+  background:
+    linear-gradient(180deg,#f7efe1,#e9dcc5),
+    repeating-linear-gradient(0deg,rgba(90,70,40,.035) 0 1px,transparent 1px 24px);
+  border:1px solid rgba(90,70,40,.36);
+  box-shadow:0 18px 44px rgba(0,0,0,.42),inset 0 0 0 1px rgba(255,255,255,.7);
+  color:#2a2419;
+}
+.v-form__head{border-bottom-color:rgba(90,70,40,.22)}
+.v-form__head span{color:#8a5a3a}
+.v-form__head .btn--tiny{color:#5d4a32;border-color:rgba(90,70,40,.3);background:rgba(255,255,255,.45)}
+.v-row label,.v-row>span{color:#7a6a52;font-family:var(--hand);font-size:11.5px}
+.v-row input,.v-row textarea{
+  background:rgba(255,255,255,.42);border:1px solid rgba(90,70,40,.22);color:#26324a;
+}
+.v-row input::placeholder,.v-row textarea::placeholder{color:rgba(38,50,74,.35)}
+.v-row input:focus,.v-row textarea:focus{border-color:#b8463f;background:rgba(255,255,255,.7);box-shadow:0 0 0 2px rgba(184,70,63,.12)}
+.seg button{background:rgba(255,255,255,.35);border-color:rgba(90,70,40,.2);color:#6d5d45}
+.seg button:hover{background:rgba(255,255,255,.6);color:#26324a}
+.seg button.is-on{background:linear-gradient(135deg,#c9a46b,#a98245);color:#2a1d0c;border-color:#8a6b3a}
+.v-summary{
+  background:
+    linear-gradient(170deg,#f7efe1,#e8dbc4),
+    repeating-linear-gradient(0deg,rgba(90,70,40,.03) 0 1px,transparent 1px 22px);
+  border:1px solid rgba(90,70,40,.4);color:#2a2419;
+  box-shadow:0 18px 44px rgba(0,0,0,.42),inset 0 0 0 1px rgba(255,255,255,.7);
+}
+.v-summary__head{color:#8a5a3a;border-bottom-color:rgba(90,70,40,.22)}
+.v-sum-grid{background:rgba(90,70,40,.14)}
+.v-sum-grid>div{background:rgba(255,255,255,.5)}
+.v-sum-grid span{color:#7a6a52}
+.v-sum-grid b{color:#26324a}
+.v-sum-grid em{color:#7a6a52}
+.v-perks span{border-color:rgba(184,70,63,.3);color:#8a3a34;background:rgba(184,70,63,.06)}
+.v-summary__note{color:#5d4a32;border-left-color:#b8463f}
+.v-summary .btn--star{
+  background:linear-gradient(135deg,#c9a46b,#a98245);border-color:#8a6b3a;color:#2a1d0c;
+  box-shadow:0 8px 22px rgba(90,70,40,.3);
+}
+.v-copy-row .btn--tiny{color:#5d4a32;border-color:rgba(90,70,40,.3);background:rgba(255,255,255,.4)}
+.e-hint{color:rgba(244,239,228,.36)}
+
+/* 契约纸上的红印章 */
+.v-summary::after{
+  content:"已订";position:absolute;right:18px;bottom:64px;
+  width:48px;height:48px;display:grid;place-items:center;border:2px solid rgba(184,70,63,.55);
+  color:rgba(184,70,63,.7);font-family:var(--ser);font-size:14px;letter-spacing:.08em;
+  border-radius:50%;transform:rotate(-12deg);box-shadow:inset 0 0 0 2px rgba(184,70,63,.12);
+  pointer-events:none;
+}
+.v-summary{position:relative;overflow:hidden}
+
+/* 档案纸的左上角回形针 */
+.v-form::before{
+  content:"";position:absolute;left:12px;top:-8px;width:10px;height:30px;
+  border:1.5px solid rgba(90,70,40,.45);border-radius:8px;transform:rotate(6deg);
+  box-shadow:0 1px 2px rgba(0,0,0,.15);pointer-events:none;
+}
+
+/* ---------- 加载屏：粉笔板 + 金色进度 ---------- */
+.loader__board{border-color:#7a5530;box-shadow:0 34px 70px rgba(0,0,0,.65),inset 0 2px 18px rgba(0,0,0,.55),inset 0 0 80px rgba(255,255,255,.05)}
+.loader__kicker{color:rgba(240,246,236,.62)}
+.loader__enter{border-radius:2px;background:linear-gradient(180deg,rgba(243,224,166,.16),rgba(243,224,166,.06))}
+
+/* ---------- 小屏：纸张层不要压住操作 ---------- */
+@media (max-width:760px){
+  .gossip{transform:none}
+  .adv__inner{transform:none}
+  .doll-bubble{transform:none}
+  .archive__hint{display:none}
+  .v-summary::after{display:none}
+}
+
+/* =========================================================
+   第二轮加浓：把纸片、胶片与星图推到前景
+   ========================================================= */
+
+/* ADV 心声改成一张真正的纸条，而不是通栏色带 */
+.adv__inner{
+  display:inline-block;align-self:flex-start;width:auto;max-width:88%;
+  padding:7px 16px 7px 38px;border-radius:1px;
+  box-shadow:3px 4px 0 rgba(90,70,40,.14),0 4px 14px rgba(0,0,0,.22);
+  transform:rotate(-.45deg);
+}
+.adv__inner::after{
+  content:"";position:absolute;right:-1px;bottom:-1px;width:14px;height:14px;
+  background:linear-gradient(135deg,transparent 49%,#d8c8a7 50%);
+  box-shadow:-1px -1px 0 rgba(90,70,40,.12);
+}
+.adv__frame{border-top:2px solid rgba(217,184,114,.55)}
+.adv__name::after{
+  content:"禾";display:inline-grid;place-items:center;
+  width:22px;height:22px;margin-left:2px;flex:none;
+  border:1.5px solid rgba(184,70,63,.7);border-radius:2px;
+  color:#d9776c;font-family:var(--ser);font-size:11px;
+  transform:rotate(-7deg);box-shadow:inset 0 0 0 1px rgba(184,70,63,.18);
+}
+.adv__dots i.is-on{box-shadow:0 0 10px rgba(217,184,114,.7)}
+
+/* 第二幕：黄铜计数器 + 更醒目的星轨 */
+.mem-counter{
+  padding:3px 10px;border:1px solid rgba(217,184,114,.4);
+  background:linear-gradient(180deg,rgba(217,184,114,.16),rgba(217,184,114,.03));
+  color:#f5e3ad;letter-spacing:.18em;font-size:10px;
+}
+.mem-node i{width:8px;height:8px}
+.mem-node b{font-size:10px}
+.mem-node span{font-size:11.5px}
+.mem-node::after{background:repeating-linear-gradient(90deg,rgba(217,184,114,.5) 0 4px,transparent 4px 8px)}
+.mem-track::before{background:linear-gradient(90deg,transparent,rgba(217,184,114,.6),transparent);height:1.5px}
+.mem-caption p{background:linear-gradient(180deg,transparent 76%,rgba(217,184,114,.2) 76%)}
+.mem-caption__line{width:70px;height:2px}
+.mem-next{border-radius:2px}
+
+/* 第三幕：星图更明显 + 右侧竖排手记 */
+.stage-orbit{opacity:.32}
+.stage-orbit::after{
+  content:"";position:absolute;inset:9%;border-radius:50%;
+  background:
+    conic-gradient(from 12deg,transparent 0 18deg,rgba(217,184,114,.16) 18deg 19deg,transparent 19deg 42deg,
+      rgba(217,184,114,.10) 42deg 43deg,transparent 43deg 90deg,
+      rgba(134,227,255,.10) 90deg 91deg,transparent 91deg 150deg,
+      rgba(217,184,114,.12) 150deg 151deg,transparent 151deg 210deg,
+      rgba(217,184,114,.08) 210deg 211deg,transparent 211deg 300deg);
+  -webkit-mask-image:radial-gradient(circle,transparent 0 54%,#000 56% 58%,transparent 60%);
+  mask-image:radial-gradient(circle,transparent 0 54%,#000 56% 58%,transparent 60%);
+}
+.act-c::before{
+  content:"一百天 · 高三(7)班 · 周清禾";position:absolute;left:10px;top:46%;
+  writing-mode:vertical-rl;transform:translateY(-50%);
+  font-family:var(--ser);font-size:10px;letter-spacing:.42em;
+  color:rgba(244,239,228,.22);pointer-events:none;z-index:3;
+}
+.act-c::after{
+  content:"✦";position:absolute;right:14px;top:calc(var(--hud-h) + 22px);
+  color:rgba(217,184,114,.55);font-size:12px;pointer-events:none;z-index:3;
+  text-shadow:0 0 12px rgba(217,184,114,.5);
+}
+.doll__meta{background:rgba(5,8,15,.82);border-color:rgba(217,184,114,.32);color:#e7dcc7}
+.doll__meta b{color:#f5e3ad}
+
+/* 第三幕：衣橱标题加一条黄铜横杆 */
+.wardrobe__head{position:relative}
+.wardrobe__head::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:linear-gradient(90deg,rgba(217,184,114,.6),transparent);
+}
+.wardrobe__foot span{color:#c9a46b}
+
+/* 档案纸：加回形针与红色装订线 */
+.archive::before{
+  content:"";position:absolute;left:14px;top:4px;width:11px;height:34px;
+  border:1.5px solid rgba(90,70,40,.5);border-radius:9px;transform:rotate(5deg);
+  box-shadow:0 2px 3px rgba(0,0,0,.12);pointer-events:none;z-index:5;
+}
+.archive__handle b{letter-spacing:.16em}
+.archive__handle b::before{
+  content:"档案";display:inline-block;margin-right:9px;padding:1px 5px;
+  border:1px solid rgba(184,70,63,.5);color:#a8443c;font-family:var(--mono);
+  font-size:8px;letter-spacing:.08em;transform:rotate(-3deg);vertical-align:2px;
+}
+.a-tab.is-on{position:relative}
+.a-tab.is-on::after{
+  content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;
+  background:#b8463f;transform:skewX(-18deg);
+}
+
+/* 第四幕：票根虚线 + 本周目标便签 */
+.pn{border-radius:2px}
+.pn::after{
+  content:"";position:absolute;left:8px;right:8px;bottom:5px;height:1px;
+  background:repeating-linear-gradient(90deg,rgba(217,184,114,.28) 0 4px,transparent 4px 8px);
+}
+.play-nav::after{
+  content:"本周目标\A 圆锥曲线第二问 · 导数第一问\A 她的目标卡：100";white-space:pre-wrap;
+  display:block;margin-top:8px;padding:10px 12px;
+  border:1px dashed rgba(217,184,114,.28);background:rgba(244,239,228,.04);
+  font-family:var(--hand);font-size:11px;line-height:1.9;color:#c9bfa9;letter-spacing:.04em;
+}
+.play-info{border-left-width:3px;border-left-color:#b8463f;background:
+  linear-gradient(90deg,rgba(255,246,220,.05),transparent 30%),
+  linear-gradient(120deg,rgba(26,31,44,.92),rgba(12,16,26,.78));}
+
+/* 第五幕：红印章移到契约抬头，不再压住按钮 */
+.v-summary::after{
+  top:9px;right:12px;bottom:auto;width:38px;height:38px;font-size:11px;
+}
+.v-form{position:relative;overflow:hidden}
+.v-form::after{
+  content:"少年档案";position:absolute;right:14px;top:44px;padding:2px 8px;
+  border:1px solid rgba(184,70,63,.35);color:rgba(184,70,63,.6);
+  font-family:var(--ser);font-size:10px;letter-spacing:.18em;transform:rotate(-5deg);
+  pointer-events:none;
+}
+.idcard__no{letter-spacing:.2em}
+.idcard__name{text-shadow:0 1px 8px rgba(0,0,0,.5)}
+
+/* 第一幕：章节眉标加一枚红色粉笔点 */
+.act-a__chapter::after{
+  content:"";width:5px;height:5px;border-radius:50%;
+  background:rgba(217,80,63,.8);box-shadow:0 0 8px rgba(217,80,63,.5);
+}
+
+/* 第二幕：上下黑边各加一条极细金线 */
+.letterbox--top{border-bottom-color:rgba(217,184,114,.22)}
+.letterbox--bottom{border-top-color:rgba(217,184,114,.22)}
+
+/* 小屏：隐藏竖排手记与票根便签，避免拥挤 */
+@media (max-width:900px){
+  .act-c::before{display:none}
+  .play-nav::after{display:none}
+}
+
+.mem-node{color:#c9c2b4}
+.mem-node b{color:#b9a888}
+.mem-node.is-done{color:#e0c896}
+.mem-node.is-on{color:#f5e3ad}
+.mem-node:hover{color:#f5e3ad}
+.mem-node span{opacity:.92}
+.mem-node:not(.is-on) i{border-color:rgba(217,184,114,.6)}
+
+/* 点击星芒：遮住姿势过渡的中间帧 */
+.hs-spark{
+  position:absolute;width:12px;height:12px;transform:translate(-50%,-50%);pointer-events:none;z-index:6;
+  background:
+    radial-gradient(circle,#fff6dc 0 28%,rgba(255,214,150,.9) 30% 45%,transparent 46%),
+    conic-gradient(from 0deg,transparent 0 8deg,rgba(255,236,198,.85) 8deg 10deg,transparent 10deg 40deg,
+      rgba(255,133,179,.65) 40deg 42deg,transparent 42deg 88deg,
+      rgba(134,227,255,.7) 88deg 90deg,transparent 90deg 140deg,
+      rgba(255,236,198,.7) 140deg 142deg,transparent 142deg 180deg);
+  animation:hs-spark .62s var(--ease-out,cubic-bezier(.22,1,.36,1)) forwards;
+  filter:drop-shadow(0 0 8px rgba(255,236,198,.7));
+}
+@keyframes hs-spark{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0)}
+  25%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(4.2) rotate(38deg)}
+}
+
+.doll-hint{display:none}
+.doll.is-react::after{
+  content:"";position:absolute;inset:-4%;z-index:6;pointer-events:none;
+  background:radial-gradient(circle at var(--sx,50%) var(--sy,28%),rgba(255,250,230,.6),rgba(255,214,150,.22) 30%,transparent 58%);
+  mix-blend-mode:screen;animation:doll-flash .42s var(--ease) forwards;
+}
+@keyframes doll-flash{0%{opacity:0;transform:scale(.96)}22%{opacity:1}100%{opacity:0;transform:scale(1.04)}}
