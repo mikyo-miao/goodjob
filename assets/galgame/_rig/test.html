@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<base href="/">
+<title>W01 rig test</title>
+<style>
+  body{margin:0;background:#0b0f18;color:#eee;font-family:sans-serif;display:flex;height:100vh;overflow:hidden}
+  #stage{flex:1;display:flex;align-items:center;justify-content:center}
+  #doll{height:96vh;aspect-ratio:832/1216;position:relative}
+  canvas{width:100%;height:100%;display:block}
+  #ui{width:220px;padding:16px;background:#131a2a;display:flex;flex-direction:column;gap:6px}
+  button{padding:7px;background:#222d45;color:#eee;border:1px solid #455;border-radius:4px;cursor:pointer}
+  button:hover{background:#33405f}
+</style>
+</head>
+<body>
+  <div id="stage">
+    <div id="doll"><canvas id="c" width="832" height="1216"></canvas></div>
+  </div>
+  <div id="ui">
+    <button data-p="rest">rest (A-pose)</button>
+    <button data-p="cross">cross</button>
+    <button data-p="guard">guard</button>
+    <button data-p="tuck">tuck</button>
+    <button data-p="glasses">glasses</button>
+    <button data-p="mouth">mouth</button>
+    <button data-p="stomp">stomp</button>
+    <button data-p="turn">turn</button>
+  </div>
+  <script src="/assets/js/puppet.js"></script>
+  <script>
+    const c = document.getElementById('c');
+    const p = new QHPuppet(c);
+    if (p.init()) {
+      p.resize();
+      p.loadAll(() => { document.body.dataset.ready = '1'; });
+    } else {
+      document.body.dataset.fail = '1';
+    }
+    window.p = p;
+    document.querySelectorAll('button').forEach(b => b.onclick = () => p.setPose(b.dataset.p));
+  </script>
+</body>
+</html>
