@@ -1,0 +1,97 @@
+/* =========================================================
+   扩展：模态内容 / 衣橱总览 / 提示点开关 / 细节修正
+   ========================================================= */
+
+/* 提示点开关 */
+.hs-toggle{
+  width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:4px 6px;border:1px solid rgba(217,184,114,.22);background:rgba(217,184,114,.06);
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--gold-2);
+  transition:.25s var(--ease);
+}
+.hs-toggle:hover{background:rgba(217,184,114,.14);border-color:rgba(217,184,114,.44)}
+.hs-toggle i{width:5px;height:5px;transform:rotate(45deg);background:currentColor;box-shadow:0 0 6px currentColor}
+.hs-toggle.is-off{color:var(--t-3);border-color:rgba(244,239,228,.12);background:rgba(244,239,228,.03)}
+
+/* 封条 */
+.seal{padding:6px 2px 2px;text-align:center}
+.seal__kicker{font-family:var(--mono);font-size:9px;letter-spacing:.24em;color:var(--pink);margin-bottom:8px}
+.seal h4{font-family:var(--ser);font-size:24px;letter-spacing:.16em;color:#fff;margin-bottom:4px}
+.seal__sub{font-size:11px;color:var(--t-3);letter-spacing:.1em;margin-bottom:14px}
+.seal__txt{font-size:12.5px;line-height:2;color:var(--t-2);max-width:420px;margin:0 auto 18px;padding:12px 16px;background:rgba(244,239,228,.04);border:1px dashed rgba(217,184,114,.24)}
+.seal .btn{min-width:180px}
+
+/* 物证 */
+.evi{display:grid;gap:12px}
+.evi img{width:100%;border:1px solid rgba(217,184,114,.3);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.evi p{font-family:var(--ser);font-size:14px;line-height:2;color:var(--t-1);padding:10px 14px;background:rgba(255,133,179,.06);border-left:2px solid rgba(255,133,179,.5)}
+.evi em{font-style:normal;font-family:var(--hand);font-size:12px;line-height:1.8;color:var(--t-2);text-align:right;display:block}
+
+/* 开场白 */
+.opening-read{max-width:660px;margin:0 auto}
+.opening-read p{
+  font-family:var(--ser);font-size:13.5px;line-height:2.05;color:#ece6da;
+  text-indent:2em;margin-bottom:12px;letter-spacing:.03em;
+}
+
+/* 衣橱总览 */
+.wardrobe-all{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.wa-item{
+  position:relative;text-align:left;padding:8px 9px;
+  background:rgba(244,239,228,.03);border:1px solid rgba(244,239,228,.08);
+  transition:.26s var(--ease);display:grid;gap:1px;
+}
+.wa-item:hover{background:rgba(217,184,114,.08);border-color:rgba(217,184,114,.3)}
+.wa-item.is-on{border-color:rgba(217,184,114,.6);background:rgba(217,184,114,.12)}
+.wa-item.is-locked{opacity:.55}
+.wa-item.is-locked::after{content:"封";position:absolute;right:5px;top:5px;font-size:7px;color:var(--pink);border:1px solid rgba(255,133,179,.4);padding:0 2px}
+.wa-item b{font-family:var(--mono);font-size:8px;color:var(--gold);letter-spacing:.1em}
+.wa-item span{font-size:11px;color:var(--t-1);letter-spacing:.02em;line-height:1.35}
+.wa-item em{font-style:normal;font-size:8.5px;color:var(--t-3);line-height:1.4}
+.wa-note{font-family:var(--hand);font-size:11px;line-height:1.8;color:var(--t-3);padding-left:10px;border-left:1px solid rgba(217,184,114,.3)}
+
+/* 状态栏预览模态内边距 */
+.modal--status .modal__body{padding:0}
+.modal--status .qhpv{border-radius:0;border:0}
+.modal--evi .modal__body{padding:14px}
+.modal--opening .modal__body{padding:20px}
+
+/* 开局指令结果 */
+.seal-out{display:grid;gap:12px}
+.seal-out__lead{font-family:var(--hand);font-size:12px;line-height:1.9;color:var(--t-2);padding-left:10px;border-left:1px solid rgba(255,190,118,.45)}
+.seal-out pre{
+  max-height:44vh;overflow:auto;padding:12px 14px;
+  background:rgba(5,8,15,.7);border:1px solid rgba(244,239,228,.1);
+  font-family:var(--mono);font-size:10.5px;line-height:1.75;color:var(--t-2);
+  white-space:pre-wrap;word-break:break-word;
+}
+.seal-out__bar{display:flex;align-items:center;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.seal-out__state{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--mint);margin-right:auto}
+.seal-out__state.is-bad{color:var(--pink)}
+
+/* 数值跳动 */
+.adv__bpm{transition:transform .16s var(--ease)}
+.vitals__bpm b{transition:color .3s}
+
+/* 沉浸模式下保留呼吸感 */
+body.is-immersive .doll{filter:drop-shadow(0 30px 46px rgba(0,0,0,.62)) drop-shadow(0 0 60px rgba(217,184,114,.12))}
+
+/* 竖屏适配：档案抽屉与立绘冲突时压缩 */
+@media (max-height:700px) and (min-width:901px){
+  .vitals{top:calc(var(--hud-h) + 64px);transform:scale(.92);transform-origin:left top}
+  .wardrobe{top:calc(var(--hud-h) + 64px);transform:scale(.92);transform-origin:right top}
+  .c-head__title{display:none}
+  .archive{max-height:46px}
+  .archive.is-open{max-height:min(58vh,380px)}
+  .archive__body{height:calc(min(58vh,380px) - 46px)}
+}
+
+/* 小屏模态 */
+@media (max-width:640px){
+  .modal{padding:10px}
+  .modal__card{max-height:88vh}
+  .wardrobe-all{grid-template-columns:repeat(2,1fr)}
+  .seal h4{font-size:19px}
+  .evi p{font-size:12.5px}
+  .opening-read p{font-size:12.5px}
+}
