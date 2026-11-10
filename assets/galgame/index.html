@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f8f6f0">
+<title>高三（7）班 · 靠窗倒数第二排 ｜ 周清禾</title>
+<meta name="description" content="2月27日，距高考100天。课桌正中画着一道涂改带白线，她把目标卡扣在左手底下。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23fffdf8'/%3E%3Cg fill='none' stroke='%23b8455f' stroke-width='1.6'%3E%3Ccircle cx='10.5' cy='18' r='5.4'/%3E%3Ccircle cx='23' cy='18' r='5.4'/%3E%3Cpath d='M15.9 18h1.6'/%3E%3C/g%3E%3Ccircle cx='24.6' cy='8' r='1.4' fill='%23c83e37'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/tokens.css?v=20261110z6">
+<link rel="stylesheet" href="assets/css/layout.css?v=20261110z6">
+<link rel="stylesheet" href="assets/css/sections.css?v=20261110z6">
+<noscript><style>.loader{display:none}body.is-loading{overflow:auto}</style></noscript>
+</head>
+<body class="is-loading">
+<div class="world" id="world" aria-hidden="true">
+  <div class="world__layer is-on" data-world="desk"><img src="assets/bg/A1_classroom_bg.png" alt=""></div>
+  <div class="world__layer" data-world="origin"><img src="assets/bg/B3_father_rain_umbrella.png" alt=""></div>
+  <div class="world__layer" data-world="stage"><img src="assets/bg/C0_stage_bg.png" alt=""></div>
+  <div class="world__layer" data-world="play"><img src="assets/bg/D4_night_cycling.png" alt=""></div>
+  <div class="world__layer" data-world="night"><img src="assets/bg/B6_attic_singing.png" alt=""></div>
+  <div class="world__veil"></div>
+  <div class="world__beams"></div>
+  <div class="world__screentone"></div>
+  <div class="world__vignette"></div>
+  <canvas class="world__dust" id="worldDust"></canvas>
+  <div class="world__grain"></div>
+</div>
+<div class="page-grain" aria-hidden="true"></div>
+<a class="skip-link" href="#sec-desk">跳到正文</a>
+
+<!-- =========================================================
+     开屏黑板：真实素材进度驱动 101 → 100
+     ========================================================= -->
+<div class="loader" id="loader">
+  <div class="loader__inner">
+    <div class="loader__oath" aria-hidden="true">
+      <span>七中致远楼 · 二〇二六届百日誓师</span>
+      <b>决战百日 · 落笔无悔</b>
+    </div>
+
+    <div class="loader__board" id="loaderBoard">
+      <div class="loader__board-top">
+        <span>高三（7）班 · 后黑板</span>
+        <span>2月27日 星期五 · 阴转晴</span>
+      </div>
+
+      <div class="loader__count">
+        <div class="loader__num-row">
+          <s class="loader__ghost" id="loaderGhost" aria-hidden="true">101</s>
+          <b class="loader__num" id="loaderNum">100</b>
+          <span class="loader__unit">天</span>
+        </div>
+        <span class="loader__sub">距六月七日全国统考</span>
+      </div>
+
+      <div class="loader__bottom">
+        <div class="loader__meta">
+          <p>第六节：全校百日誓师（西操场）</p>
+          <p>第七节：填写百日目标卡（班主任跟班）</p>
+          <p>后墙范文栏：《局外人》阅读札记 —— <em>周清禾</em></p>
+        </div>
+        <div class="loader__quote">
+          <p>“目标卡下课前各组收齐，不许写空话套话，下晚自习前我挨个看。”</p>
+          <span>—— 张建国</span>
+        </div>
+      </div>
+
+      <div class="loader__bar-wrap">
+        <div class="loader__bar-meta"><span id="loaderStatus">正在擦净靠窗倒数第二排的粉笔灰…</span><b id="loaderPct">0%</b></div>
+        <div class="loader__bar"><i id="loaderBar"></i></div>
+      </div>
+
+      <img class="loader__sticker" src="assets/ui/sticker_chalk_eraser.webp" alt="" aria-hidden="true">
+    </div>
+
+    <button class="loader__enter" id="loaderEnter" disabled>
+      <span>高三（7）班 · 靠窗外侧座位</span>
+      <b id="loaderEnterTxt">课桌整理中…</b>
+    </button>
+    <p class="loader__hint">素材加载完成后，点击按钮或直接向下滚动</p>
+  </div>
+</div>
+
+<!-- =========================================================
+     常驻顶栏
+     ========================================================= -->
+<header class="hud" id="hud">
+  <a class="hud__brand" href="#top" aria-label="回到页面顶部">
+    <span class="hud__seal" aria-hidden="true">禾</span>
+    <span class="hud__title">死装同桌 · 周清禾</span>
+  </a>
+
+  <nav class="hud__nav" id="hudNav" aria-label="章节导航">
+    <a href="#sec-desk" data-sec="sec-desk" class="is-on"><i>01</i><span>三八线</span></a>
+    <a href="#sec-origin" data-sec="sec-origin"><i>02</i><span>来处</span></a>
+    <a href="#sec-stage" data-sec="sec-stage"><i>03</i><span>隔桌</span></a>
+    <a href="#sec-play" data-sec="sec-play"><i>04</i><span>百日</span></a>
+    <a href="#sec-contract" data-sec="sec-contract"><i>05</i><span>落座</span></a>
+  </nav>
+
+  <div class="hud__right">
+    <span class="hud__days">距高考 <b>100</b> 天</span>
+    <button class="hud__fm" id="btnRadio" aria-pressed="false" title="「冷感绝缘体.」深夜电台">
+      <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <span>冷感绝缘体. FM</span>
+    </button>
+    <a class="hud__cta" href="#sec-contract">直达开局选座 <span aria-hidden="true">▸</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- =========================================================
+       01 · 三八线
+       ========================================================= -->
+  <section class="sec sec--desk" id="sec-desk" data-world="desk" aria-labelledby="h-desk">
+    <div class="sec__inner">
+      <span class="watermark" aria-hidden="true">晴</span>
+      <span class="vertical-note" aria-hidden="true">高三（7）班 · 靠窗倒数第二排 · 二〇二六届</span>
+      <img class="deco deco--glasses" src="assets/ui/sticker_glasses_pen.webp" alt="" aria-hidden="true" style="right:3%;top:24%">
+      <img class="deco deco--cup" src="assets/ui/sticker_cup_book.webp" alt="" aria-hidden="true" style="left:1.5%;bottom:18%">
+      <header class="sec-head">
+        <span class="sec-head__no">01 / 三八线</span>
+        <h1 id="h-desk">看什么看。<br>视线退回到你那边去。</h1>
+        <p class="sec-head__lead">2月27日，下午第二节课后。百日誓师的红幅还在操场风里翻卷，班主任刚把黑板右上角的数字改成 100。你的同桌把目标卡扣在桌上，左手压着第一行字，右手转着一支抠光贴纸的晨光水笔。</p>
+        <div class="sec-head__meta">
+          <span>致远楼四楼 · 高三（7）班</span>
+          <span>靠窗倒数第二排</span>
+          <span>距高考 100 天</span>
+        </div>
+      </header>
+
+      <div class="desk">
+        <div class="desk-visual">
+          <figure class="frame">
+            <div class="frame__media">
+              <video id="aVideo" class="frame__video" muted loop playsinline preload="auto" poster="assets/bg/A1_classroom_bg.png"></video>
+              <img id="aPoster" class="frame__poster" src="assets/bg/A1_classroom_bg.png" alt="午后靠窗的高三七班教室">
+              <div class="frame__shade" aria-hidden="true"></div>
+              <canvas id="aDust" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:.5"></canvas>
+              <div class="frame__cap"><span id="aScene">致远楼 · 高三（7）班靠窗</span><b id="aChapter">01 / 05</b></div>
+            </div>
+          </figure>
+
+          <div class="gossip-stack">
+            <button class="gossip gossip--1" data-gossip="1" type="button">
+              <span class="gossip__who">前排 · 林薇薇</span>
+              <p>“我目标卡写的可是浙大，某些人拿手捂那么严实干嘛？”</p>
+            </button>
+            <button class="gossip gossip--2" data-gossip="2" type="button">
+              <span class="gossip__who">斜后方 · 赵鹏</span>
+              <p>“小声点，文科班嘉欣姐又在看她那本八块钱的《局外人》了……”</p>
+            </button>
+            <button class="gossip gossip--3" data-gossip="3" type="button">
+              <span class="gossip__who">正前方 · 孙淼淼</span>
+              <p>“赌五毛钱，她那张卡上肯定就写了个‘随便’。”</p>
+            </button>
+          </div>
+        </div>
+
+        <div class="adv" id="advBox">
+          <div class="adv__avatar"><img id="aAvatar" src="assets/ui/avatar/av4_e01.png" alt="周清禾"></div>
+          <div class="adv__tape" aria-hidden="true"><span>桌缝正中 · 涂改带白线</span></div>
+
+          <div class="adv__top">
+            <div class="adv__who"><b>周清禾</b><span id="aMode">眼皮没抬 · 压着卡片</span></div>
+            <div class="adv__guard">
+              <span>防线</span>
+              <div class="guard-bars" id="aGuard" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+              <b id="aGuardText">第一格</b>
+            </div>
+          </div>
+
+          <p class="adv__line" id="aLine" aria-live="polite"></p>
+
+          <div class="adv__inner" id="aInner">
+            <span>心里</span>
+            <p id="aInnerText"></p>
+          </div>
+
+          <div class="adv__foot">
+            <div class="adv__dots" id="aDots" aria-hidden="true"></div>
+            <div class="adv__btns">
+              <button class="btn btn--ghost btn--tiny" id="aPrev" type="button">上一步</button>
+              <button class="btn btn--tiny" id="aNext" type="button">下一步 <span aria-hidden="true">▸</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="desk-tools" id="deskTools" aria-label="课桌第一人称小动作">
+          <button class="desk-tool" data-desk="pen" type="button">
+            <img src="assets/ui/sticker_glasses_pen.webp" alt="">
+            <span><i>01</i> <b>把水笔推回三八线</b></span>
+          </button>
+          <button class="desk-tool" data-desk="card" type="button">
+            <img src="assets/ui/props/prop_target_card.png" alt="">
+            <span><i>02</i> <b>掀开目标卡一角</b></span>
+          </button>
+          <button class="desk-tool" data-desk="window" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M12 3v18M3 12h18"/></svg>
+            <span><i>03</i> <b>锁紧漏风的铝合金窗</b></span>
+          </button>
+        </div>
+        <p class="desk-hint">点画面上的三张字条，看她手指怎么收紧 · 空格 / 回车推进</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       02 · 来处
+       ========================================================= -->
+  <section class="sec sec--origin" id="sec-origin" data-world="origin" aria-labelledby="h-origin">
+    <div class="sec__inner">
+      <span class="watermark" aria-hidden="true">雨</span>
+      <span class="vertical-note" aria-hidden="true">水房 · 冷水池 · 报刊亭 · 粮油铺二楼</span>
+      <header class="sec-head sec-head--split">
+        <div>
+          <span class="sec-head__no">02 / 来处</span>
+          <h2 id="h-origin">那身校服穿大两码之前</h2>
+        </div>
+        <p class="sec-head__lead">水房、冷水池、校门一百米外的旧三轮、床底的曲奇铁盒。她把这些事按顺序锁起来，钥匙从来不给人看。</p>
+      </header>
+
+      <div class="origin">
+        <figure class="frame frame--21x9">
+          <div class="frame__media">
+            <video id="bVideo" class="frame__video" muted loop playsinline preload="none"></video>
+            <img id="bPoster" class="frame__poster" src="assets/bg/B1_waterroom.png" alt="水房里的记忆">
+            <div class="frame__shade" aria-hidden="true"></div>
+            <figcaption class="origin__cap">
+              <span class="origin__idx" id="bCounter">01 / 06</span>
+              <p id="bCaptionText"></p>
+            </figcaption>
+          </div>
+        </figure>
+
+        <div class="film-row" id="bTrack" role="tablist" aria-label="六段记忆"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       03 · 隔桌
+       ========================================================= -->
+  <section class="sec sec--stage" id="sec-stage" data-world="stage" aria-labelledby="h-stage">
+    <div class="sec__inner">
+      <span class="watermark" aria-hidden="true">暮</span>
+      <span class="vertical-note" aria-hidden="true">放学后 · 空教室 · 靠窗座位</span>
+      <img class="deco deco--headphone" src="assets/ui/sticker_headphone.webp" alt="" aria-hidden="true" style="right:1.5%;top:26%">
+      <header class="sec-head sec-head--split">
+        <div>
+          <span class="sec-head__no">03 / 隔桌</span>
+          <h2 id="h-stage">离她半步远，听她怎么把心虚说成道理</h2>
+        </div>
+        <p class="sec-head__lead">鼠标停在她身上，她会看回来。点她耳后、镜片、口罩、领口、校服、手背或鞋跟，听她把每一处破绽解释成自然现象。</p>
+      </header>
+
+      <div class="stage">
+        <aside class="panel stage__record" aria-label="同桌观察记录">
+          <div class="panel__head"><span>同桌观察记录</span><em>高三（7）班</em></div>
+          <div class="record__big"><span>同桌熟稔度</span><b><em id="vFav">22</em><small>/100</small></b></div>
+          <div class="record__bar"><i id="vFavBar" style="width:22%"></i></div>
+          <div class="record__heat">
+            <span>耳根热度</span>
+            <div class="heat-dots" id="vHeat" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            <b id="vHeatText">平稳</b>
+          </div>
+          <div class="record__rows">
+            <div><span>面上神色</span><b id="vMask">镜片挡眼 · 唇线绷平</b></div>
+            <div><span>已留意的破绽</span><b><em id="vSecrets">0</em> / 7</b></div>
+          </div>
+          <p class="record__note" id="vNote">她把手缩进大一码的校服袖口里，只露出握笔的指尖。</p>
+        </aside>
+
+        <div class="stage__doll" id="stageDoll">
+          <video id="cStageVideo" class="stage-video" muted loop playsinline preload="none" poster="assets/bg/C0_stage_bg.png"></video>
+          <div class="doll-wrap">
+            <div class="doll" id="doll">
+              <canvas id="liveCanvas" width="832" height="1216" aria-label="周清禾立绘，可点击不同部位"></canvas>
+              <div class="doll__blush doll__blush--cheek" id="blushCheek" aria-hidden="true"></div>
+              <div class="doll__blush doll__blush--ear" id="blushEar" aria-hidden="true"></div>
+              <div class="doll-bubble" id="dollBubble" role="status" aria-live="polite">
+                <b id="bubbleWho">周清禾</b>
+                <p id="bubbleText"></p>
+                <span class="doll-bubble__inner" id="bubbleInner"></span>
+              </div>
+              <div class="doll__meta"><span id="dollOutfit">01 / 燕麦收腰学院装</span><b id="dollEmo">清冷</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <section class="panel" aria-label="视线落点">
+            <div class="panel__head"><span>视线落点</span><em id="pokeCount">0 / 7</em></div>
+            <div class="poke__list" id="pokeList"></div>
+          </section>
+          <section class="panel" aria-label="百日衣橱">
+            <div class="panel__head"><span>百日衣橱</span><em id="wardrobeState">已解锁 1 / 16</em></div>
+            <div class="wardrobe__rail" id="wardrobeRail"></div>
+            <div class="wardrobe__foot"><b id="wardrobeName">燕麦收腰学院装</b><button class="btn btn--tiny" id="btnWardrobeAll" type="button">全部</button></div>
+          </section>
+        </div>
+      </div>
+      <p class="stage-hint">点她身上也可以 · 后 6 套衣橱需要先撕开封条</p>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       03.5 · 同桌手记
+       ========================================================= -->
+  <section class="sec sec--archive" id="sec-archive" data-world="stage" aria-labelledby="h-archive">
+    <div class="sec__inner">
+      <span class="vertical-note" aria-hidden="true">牛皮纸笔记本 · 第十一页</span>
+      <header class="sec-head sec-head--split">
+        <div>
+          <span class="sec-head__no">03.5 / 手记</span>
+          <h2 id="h-archive">周清禾 · 同桌手记</h2>
+        </div>
+        <p class="sec-head__lead">学籍、桌角旧物，以及七张还没显影的课桌物证。看过的地方会留在纸上。</p>
+      </header>
+
+      <div class="archive" id="archive">
+        <div class="archive__front">
+          <div class="archive__toolbar">
+            <span>正面 · 她装出来的体面</span>
+            <button class="archive__flip" id="notebookFlip" type="button">掀开第十一页 ▸</button>
+          </div>
+          <div class="archive__tabs" role="tablist" aria-label="手记分页">
+            <button class="a-tab is-on" data-tab="1" role="tab" aria-selected="true" type="button">学籍与偏科</button>
+            <button class="a-tab" data-tab="2" role="tab" aria-selected="false" type="button">桌角旧物</button>
+            <button class="a-tab" data-tab="4" role="tab" aria-selected="false" type="button">课桌物证 <i id="tabSecretCount">0/7</i></button>
+          </div>
+
+          <div class="archive__pages">
+            <div class="a-page is-on" data-page="1">
+              <div class="a-grid" id="archiveGrid"></div>
+            </div>
+            <div class="a-page" data-page="2">
+              <div class="a-scraps" id="archiveScraps"></div>
+            </div>
+            <div class="a-page" data-page="4">
+              <div class="a-polaroids" id="polaroids"></div>
+              <p class="a-polaroid-note">每次碰她身上一处，这里就会显影一张。七张集齐，才算真的把她的破绽看全。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="archive__back" id="notebookBack">
+          <div class="nb-back">
+            <div class="nb-back__holes" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="nb-back__math" aria-hidden="true">设 A(x₁,y₁) · B(x₂,y₂)<br>联立 · Δ &gt; 0<br>韦达定理 · x₁+x₂ = −b/a</div>
+            <div class="nb-back__stain" aria-hidden="true"></div>
+            <div class="nb-back__title">第十一页 · 她没打算给任何人看</div>
+            <div class="a-polaroids" id="polaroidsBack"></div>
+            <p class="nb-back__note">方格是拿尺子一页页画的。红笔是抄给你的辅助线，蓝笔是她自己算错的。右下角那点红油，是晚自习偷吃辣条留下的。</p>
+          </div>
+          <div class="archive__backbar">
+            <button class="archive__flip" id="notebookFlipBack" type="button">◂ 翻回正面</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       04 · 百日
+       ========================================================= -->
+  <section class="sec sec--play" id="sec-play" data-world="play" aria-labelledby="h-play">
+    <div class="sec__inner">
+      <span class="watermark" aria-hidden="true">夜</span>
+      <span class="vertical-note" aria-hidden="true">从致远楼到兴民市场 · 一百天</span>
+      <img class="deco deco--math" src="assets/ui/sticker_math_tools.webp" alt="" aria-hidden="true" style="right:2%;top:22%">
+      <header class="sec-head sec-head--split">
+        <div>
+          <span class="sec-head__no">04 / 百日</span>
+          <h2 id="h-play">一百天里要做的事</h2>
+        </div>
+        <p class="sec-head__lead">把数学拉过一百，把那双磨脚的旧鞋换掉，再把她藏在深夜里的声音，往更远的地方推一点。</p>
+      </header>
+
+      <div class="play">
+        <div class="play__nav" id="playNav" role="tablist" aria-label="四条日常线"></div>
+
+        <div class="play__stage">
+          <figure class="frame">
+            <div class="frame__media">
+              <video id="dVideo" class="frame__video" muted loop playsinline preload="none"></video>
+              <img id="dPoster" class="frame__poster" src="assets/bg/D1_math.png" alt="百日玩法画面">
+              <div class="frame__shade" aria-hidden="true"></div>
+              <div class="frame__tag" id="dTag">D1 · 讲数学</div>
+            </div>
+          </figure>
+
+          <div class="play__info" id="playInfo"></div>
+          <div class="play__map" id="playMap"><span>走读地图</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       05 · 落座
+       ========================================================= -->
+  <section class="sec sec--contract" id="sec-contract" data-world="night" aria-labelledby="h-contract">
+    <div class="sec__inner">
+      <span class="watermark" aria-hidden="true">约</span>
+      <span class="vertical-note" aria-hidden="true">百日同桌契约 · 按红手印生效</span>
+      <img class="deco deco--sneakers" src="assets/ui/sticker_sneakers.webp" alt="" aria-hidden="true" style="right:1%;top:30%">
+      <img class="deco deco--seal" src="assets/ui/sticker_seal_card.webp" alt="" aria-hidden="true" style="left:1%;bottom:16%">
+      <header class="sec-head sec-head--split">
+        <div>
+          <span class="sec-head__no">05 / 落座</span>
+          <h2 id="h-contract">拉开靠窗外侧那张椅子之前，你是谁？</h2>
+        </div>
+        <p class="sec-head__lead">七种来路，决定了你兜里有多少零钱、会什么手艺，以及她第一眼防你几分。选定之后，在目标卡上按下手印。</p>
+      </header>
+
+      <div class="id-carousel" id="idCarousel">
+        <button class="id-arrow id-arrow--prev" id="idPrev" type="button" aria-label="向左切换身份">‹</button>
+        <div class="id-viewport" id="idViewport">
+          <div class="id-gallery" id="idGallery" role="radiogroup" aria-label="选择你的来路"></div>
+        </div>
+        <button class="id-arrow id-arrow--next" id="idNext" type="button" aria-label="向右切换身份">›</button>
+      </div>
+
+      <div class="contract">
+        <div class="form-card">
+          <div class="form-card__head"><span>STEP 2 · 填写同桌信息</span><button class="btn btn--tiny" id="btnRandom" type="button">随机填入</button></div>
+          <div class="form-grid">
+            <div class="v-field"><label for="vName">你的姓名</label><input id="vName" type="text" maxlength="12" placeholder="例如：陆星河" autocomplete="off"></div>
+            <div class="v-field"><span>性别</span><div class="seg seg--sex" id="vSex"><button data-sex="男生" class="is-on" type="button">男生</button><button data-sex="女生" type="button">女生</button><input id="vSexCustom" type="text" maxlength="8" placeholder="自定义（可留空）" autocomplete="off" aria-label="自定义性别"></div></div>
+            <div class="v-field"><label for="vLook">外貌特征</label><input id="vLook" type="text" maxlength="30" placeholder="高挑干净，眼神带笑，字迹隽秀"></div>
+            <div class="v-field"><label for="vTrait">性格特点</label><input id="vTrait" type="text" maxlength="30" placeholder="看破不说破，散漫护短，执行力强"></div>
+            <div class="v-field v-field--full"><label for="vExtra">额外设定</label><textarea id="vExtra" rows="2" maxlength="90" placeholder="曾偶然刷到过她的深夜翻唱号，但没有关注。"></textarea></div>
+          </div>
+        </div>
+
+        <aside class="target-card">
+          <div class="target-card__head">百日冲刺目标卡<span class="target-card__sub">STEP 3 · 核对开局状态</span></div>
+          <div class="v-sum-grid">
+            <div><span>初始好感</span><b id="sFav">22</b><em>/100</em></div>
+            <div><span>兜里零钱</span><b id="sMoney">¥300</b></div>
+            <div><span>精力上限</span><b id="sEnergy">130</b><em>/130</em></div>
+            <div><span>心动值</span><b id="sCrush">10</b></div>
+            <div><span>数学学力</span><b>140</b><em>/550</em></div>
+            <div><span>小铁盒</span><b>¥43.5</b></div>
+          </div>
+          <div class="v-perks" id="sPerks"></div>
+          <p class="v-note" id="sNote"></p>
+          <div class="seal-row">
+            <button class="ink-pad" id="inkPad" type="button"><span>朱砂<br>印泥</span></button>
+            <button class="stamp" id="vStampPad" type="button" title="点击按红手印" aria-label="按手印"><span id="vStampTxt">按手印</span><i aria-hidden="true"></i></button>
+            <button class="btn btn--primary" id="btnSeal" type="button">按下手印 · 生成开局文稿并复制</button>
+          </div>
+          <div class="v-copy-row">
+            <button class="btn btn--tiny" id="btnCopy" type="button">仅复制开局文稿</button>
+            <button class="btn btn--tiny" id="btnShowOpening" type="button">阅读原卡完整开场白</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><b>死装同桌 · 周清禾</b> · 高三（7）班靠窗倒数第二排 · 二〇二六届百日冲刺</footer>
+
+<!-- 常驻耳机播放器 -->
+<aside class="player" id="player" aria-hidden="true">
+  <img class="player__phones" src="assets/ui/sticker_headphone.webp" alt="" aria-hidden="true">
+  <div class="player__head">
+    <span>FM · 87.7</span>
+    <b>冷感绝缘体.</b>
+    <button class="player__min" id="playerMin" type="button" aria-label="缩小播放器">—</button>
+    <button class="player__close" id="playerClose" type="button" aria-label="收起播放器">✕</button>
+  </div>
+  <div class="player__track">
+    <b id="playerTrack">三八线上的晴空</b>
+    <span id="playerMeta">Acoustic Ver. · 02:48</span>
+  </div>
+  <div class="player__controls">
+    <button id="playerPrev" type="button" aria-label="上一首">◀</button>
+    <button class="player__play" id="playerPlay" type="button" aria-label="播放">▶</button>
+    <button id="playerNext" type="button" aria-label="下一首">▶</button>
+    <div class="player__vol"><span>VOL</span><input id="playerVol" type="range" min="0" max="100" value="38" aria-label="音量"></div>
+  </div>
+  <div class="player__list" id="playerList"></div>
+  <button class="player__voice" id="voicePlay" type="button">
+    <span>23:45 · 微信语音</span>
+    <p id="playerVoiceText">“明天早点来学校。”</p>
+  </button>
+</aside>
+<button class="player-mini" id="playerMini" type="button" aria-label="展开播放器">
+  <span class="player-mini__eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span>FM</span>
+</button>
+
+<!-- 模态 -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal__veil" data-close></div>
+  <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal__head">
+      <span id="modalKicker">预览</span>
+      <b id="modalTitle">卡内状态栏</b>
+      <button class="modal__x" data-close aria-label="关闭" type="button">✕</button>
+    </div>
+    <div class="modal__body" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/data.js?v=20261110z6"></script>
+<script src="assets/js/live2d.js?v=20261110z6"></script>
+<script src="assets/js/app.js?v=20261110z6"></script>
+</body>
+</html>
